@@ -1,4 +1,4 @@
-package ConexionDB;
+package ConecctionDB;
 
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;

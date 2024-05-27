@@ -2,7 +2,7 @@ package Services;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ConexionDB.MongoDBConnection;
+import ConecctionDB.MongoDBConnection;
 import Models.User;
 import org.bson.Document;
 import com.mongodb.MongoException;
@@ -18,8 +18,8 @@ public class UserService {
         this.addAdmin();
     }
 
-    public boolean userExist(String cc) {
-        Bson filter = Filters.eq("cc", cc);
+    public boolean userExist(String email) {
+        Bson filter = Filters.eq("email", email);
         Document usuarioExistente = userCollection.find(filter).first();
         return usuarioExistente != null;
     }
@@ -72,19 +72,34 @@ public class UserService {
                 
         this.addUser(Admin);  
     }
-    
+   protected boolean login(String email, String password) {
+        // Filtrar por el correo electrónico proporcionado
+        Bson filter = Filters.eq("email", email);
+        // Buscar en la base de datos
+        Document usuario = userCollection.find(filter).first();
 
-    public String obtenerPrimerIdUsuario() {
-        try {
-            Document primerUsuario = userCollection.find().first();
-            if (primerUsuario != null) {
-                return primerUsuario.getObjectId("_id").toString();
+        // Verificar si se encontró un usuario con el correo electrónico proporcionado
+        if (usuario != null) {
+            // Obtener la contraseña almacenada en la base de datos
+            String storedPassword = usuario.getString("password");
+            // Verificar si la contraseña coincide con la proporcionada
+            if (password.equals(storedPassword)) {
+                // La contraseña coincide, inicio de sesión exitoso
+                return true;
             } else {
-                return "No se encontraron usuarios en la colección 'Users'.";
+                // La contraseña no coincide
+                System.out.println("Contraseña incorrecta.");
+                return false;
             }
-        } catch (MongoException e) {
-            System.err.println("Error al obtener el ID del primer usuario: " + e.getMessage());
-            return null;
+        } else {
+            // No se encontró un usuario con el correo electrónico proporcionado
+            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
+            return false;
         }
     }
+ 
+    
+    
+
+    
 }

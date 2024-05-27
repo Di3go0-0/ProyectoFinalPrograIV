@@ -2,23 +2,25 @@ package Controllers;
 
 
 import Models.User;
+import ConecctionDB.MongoDBConnection;
 import Services.UserService;
-import ConexionDB.MongoDBConnection;
 
 
-public class UserController {
-    private final UserService userService;
-
+public class UserController extends UserService {
     public UserController(MongoDBConnection connection) {
-        this.userService = new UserService(connection);
+        super(connection);
     }
 
     public boolean Register(User user) {
-        return userService.addUser(user);
+        return addUser(user);
     }
     
-
-    public String obtenerPrimerIdUsuario() {
-        return userService.obtenerPrimerIdUsuario();
+    public boolean Login(String email, String password){
+        return login(email, password);
     }
+    
+    public boolean checkUserExistence(String email) {
+        return userExist(email);
+    }
+
 }
