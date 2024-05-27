@@ -172,7 +172,7 @@ public class Login extends javax.swing.JFrame {
             showMessageDialog(null, "Data Base is not connected.", "Error", ERROR_MESSAGE);
             return;
         }
-        
+
         if(allFields()){
             showMessageDialog(null, "All fields are required", "Error", ERROR_MESSAGE);
             return;
@@ -197,18 +197,18 @@ public class Login extends javax.swing.JFrame {
 
     private void disposeAndShowRegister(){
         dispose();
-        RegisterView registerView = new RegisterView();
+        Register registerView = new Register();
         registerView.setVisible(true);
     }
     
     private void disposeAndShowHome(){
         dispose();
-        HomeView view = new HomeView();
+        HomeView view = new HomeView(Email.getText());
         view.setVisible(true);
     }
     
     private boolean allFields(){
-        String email = Email.getText();
+        String email = Email.getText().trim();  // Trimming spaces
         char[] passwordChars = Password.getPassword();
 
         return email.isEmpty() || passwordChars.length == 0;
@@ -222,10 +222,10 @@ public class Login extends javax.swing.JFrame {
     }
     
     private boolean login(){
-        String email = Email.getText();
+        String email = Email.getText().trim();  // Trimming spaces
         char[] passwordChars = Password.getPassword();
         String passwordString = new String(passwordChars);
-
+                
         return userController.Login(email, passwordString);
     }
 

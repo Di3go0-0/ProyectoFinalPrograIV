@@ -16,14 +16,14 @@ import Controllers.UserController;
 
  
 
-public class RegisterView extends javax.swing.JFrame {
+public class Register extends javax.swing.JFrame {
     private MongoDBConnection mongoConnection = new MongoDBConnection();
     private UserController userController;
     
     
     private String[] typesUser = {"C.C", "T.I"};
     
-    public RegisterView() {
+    public Register() {
         initComponents();
         setLocationRelativeTo(null);    
         setResizable(false); // Hacer que la ventana no sea redimensionable

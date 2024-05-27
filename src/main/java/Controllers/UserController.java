@@ -22,5 +22,6 @@ public class UserController extends UserService {
     public boolean checkUserExistence(String email) {
         return userExist(email);
     }
+    
 
 }

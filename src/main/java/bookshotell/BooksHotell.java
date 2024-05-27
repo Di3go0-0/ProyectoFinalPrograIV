@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package bookshotell;
-import Views.RegisterView;
+import Views.Register;
 import Views.Login;
 
 

@@ -9,8 +9,22 @@ import com.mongodb.MongoException;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
+import Models.User;
+
 public class UserService {
     private final MongoCollection<Document> userCollection;
+    
+    private User loggedUser;
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+    
+    
 
     public UserService(MongoDBConnection connection) {
         MongoDatabase database = connection.getDatabase();
@@ -72,7 +86,7 @@ public class UserService {
                 
         this.addUser(Admin);  
     }
-   protected boolean login(String email, String password) {
+   public boolean login(String email, String password) {
         // Filtrar por el correo electrónico proporcionado
         Bson filter = Filters.eq("email", email);
         // Buscar en la base de datos
@@ -97,8 +111,33 @@ public class UserService {
             return false;
         }
     }
- 
     
+   
+    
+    public User getUserByEmail(String email) {
+        Bson filter = Filters.eq("email", email);
+        Document usuario = userCollection.find(filter).first();
+
+        if (usuario != null) {
+            this.loggedUser =  new User(
+                    usuario.getString("typeCC"),
+                    usuario.getString("cc"),
+                    usuario.getString("name"),
+                    usuario.getString("lastName"),
+                    usuario.getString("email"),
+                    usuario.getString("address"),
+                    usuario.getString("city"),
+                    usuario.getString("phone"),
+                    usuario.getString("password"),
+                    usuario.getString("typeUser")
+            );
+            
+        } else {
+            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
+            this.loggedUser = null;
+        }
+        return null;
+    }
     
 
     

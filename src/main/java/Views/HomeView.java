@@ -6,25 +6,27 @@ package Views;
 
 import ConecctionDB.MongoDBConnection;
 import Controllers.UserController;
-/**
- *
- * @author Administrator
- */
+
+import Models.User;
+
 public class HomeView extends javax.swing.JFrame {
-    MongoDBConnection connection = new MongoDBConnection();
-    UserController userController;
+    private MongoDBConnection connection = new MongoDBConnection();
+    private UserController userController;
+    
+    private User user;
     /**
      * Creates new form HomeView
      */
-    public HomeView() {
+    public HomeView(String email) {
         initComponents();
         
         connection.connect();
         userController = new UserController(connection);
         
-        if(userController.checkUserExistence("rinconj039@gmail.com")){
-            Connect.setText("user exist");
-        }
+        userController.getUserByEmail(email);
+        this.user = userController.getLoggedUser();
+        
+        Connect.setText(user.getEmail());
     }
 
     /**
@@ -80,7 +82,7 @@ public class HomeView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
-        RegisterView view = new RegisterView();
+        Register view = new Register();
         view.setVisible(true);
     }//GEN-LAST:event_RegisterActionPerformed
 
