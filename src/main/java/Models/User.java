@@ -1,7 +1,7 @@
 package Models;
 
 public class User {
-    private Integer id;
+    private String id;
     private String typeCC;
     private String cc;
     private String name;
@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String typeUser;
 
-    public User (Integer id,
+    public User (String id,
                  String typeCC, 
                  String cc, 
                  String name, 
@@ -59,7 +59,7 @@ public class User {
         this.typeUser = typeUser;
     }
     public User(){
-        this.id = 0;
+        this.id = "0";
         this.typeCC = "CC";
         this.cc = "00000";
         this.name = "name";
@@ -72,11 +72,11 @@ public class User {
         this.typeUser = "typeUser";
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

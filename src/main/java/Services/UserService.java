@@ -73,18 +73,20 @@ public class UserService {
     }
     
     private void addAdmin(){
-        User Admin = new User("CC", 
-                            "12345", 
-                            "Juan", 
-                            "Rincon", 
-                            "rinconj039@gmail.com", 
-                            "123 Street", 
-                            "City", 
-                            "1234567890", 
-                            "12345", 
-                            "Admin");
-                
-        this.addUser(Admin);  
+        User Admin = new User("CC",
+                "12345",
+                "Juan",
+                "Rincon",
+                "rinconj039@gmail.com",
+                "123 Street",
+                "City",
+                "1234567890",
+                "12345",
+                "Admin");
+
+        if (!userExist(Admin.getEmail())) {
+            this.addUser(Admin);
+        }
     }
    public boolean login(String email, String password) {
         // Filtrar por el correo electrónico proporcionado
@@ -119,7 +121,8 @@ public class UserService {
         Document usuario = userCollection.find(filter).first();
 
         if (usuario != null) {
-            this.loggedUser =  new User(
+            this.loggedUser = new User(
+                    usuario.getObjectId("_id").toString(),  // Assuming you want to capture the MongoDB _id
                     usuario.getString("typeCC"),
                     usuario.getString("cc"),
                     usuario.getString("name"),
@@ -131,12 +134,12 @@ public class UserService {
                     usuario.getString("password"),
                     usuario.getString("typeUser")
             );
-            
+            return this.loggedUser;
         } else {
             System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
             this.loggedUser = null;
+            return null;
         }
-        return null;
     }
     
 

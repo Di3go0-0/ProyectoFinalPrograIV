@@ -1,19 +1,25 @@
 
 package Views;
 
+import Views.Users.UserView;
+import Views.Users.AdminView;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import ConecctionDB.MongoDBConnection;
 import Controllers.UserController;
+import Models.User;
+
+
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+
 
 
 public class Login extends javax.swing.JFrame {
 
     private MongoDBConnection mongoConnection = new MongoDBConnection();
     private UserController userController;
-    
+    private User user;
     public Login() {
         initComponents();
         setLocationRelativeTo(null); 
@@ -186,8 +192,16 @@ public class Login extends javax.swing.JFrame {
             return;
         }
         showMessageDialog(null, "Login Succesfully.", "Success", INFORMATION_MESSAGE);
+        
+        this.user = userController.getUser(Email.getText().trim());
         mongoConnection.close();
-        disposeAndShowHome();
+       
+        if (user != null && "Admin".equals(user.getTypeUser())) {
+            disposeAndShowAdminView();
+        } else {
+            disposeAndShowUserView();
+        }
+        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
@@ -201,11 +215,17 @@ public class Login extends javax.swing.JFrame {
         registerView.setVisible(true);
     }
     
-    private void disposeAndShowHome(){
+    private void disposeAndShowUserView(){
         dispose();
-        HomeView view = new HomeView(Email.getText());
+        UserView view = new UserView(this.user);
         view.setVisible(true);
     }
+    private void disposeAndShowAdminView(){
+        dispose();
+        AdminView view = new AdminView(this.user);
+        view.setVisible(true);
+    }
+    
     
     private boolean allFields(){
         String email = Email.getText().trim();  // Trimming spaces
@@ -214,7 +234,7 @@ public class Login extends javax.swing.JFrame {
         return email.isEmpty() || passwordChars.length == 0;
     }
     private boolean checkUserExist(){
-         if(userController.checkUserExistence(Email.getText())){
+         if(userController.checkUserExistence(Email.getText().trim())){
              return true;
          }
             showMessageDialog(null, "User does not exist. Please register.", "Error", ERROR_MESSAGE);

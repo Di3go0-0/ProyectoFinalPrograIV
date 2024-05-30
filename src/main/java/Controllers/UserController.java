@@ -23,5 +23,9 @@ public class UserController extends UserService {
         return userExist(email);
     }
     
+    public User getUser(String email){
+        return getUserByEmail(email);
+    }
+    
 
 }
