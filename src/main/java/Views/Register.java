@@ -43,10 +43,13 @@ public class Register extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         Name = new javax.swing.JTextField();
+        jLabel55 = new javax.swing.JLabel();
         LastName = new javax.swing.JTextField();
         Address = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
@@ -72,13 +75,53 @@ public class Register extends javax.swing.JFrame {
         ConfirmPassword = new javax.swing.JPasswordField();
         TypeDocument = new javax.swing.JComboBox<>();
         jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(204, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("X");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+        );
+
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 60));
 
         jLabel38.setFont(new java.awt.Font("FiraCode Nerd Font Mono SemBd", 0, 36)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(0, 0, 0));
@@ -104,6 +147,12 @@ public class Register extends javax.swing.JFrame {
             }
         });
         jPanel3.add(Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 180, 30));
+
+        jLabel55.setFont(new java.awt.Font("FiraCode Nerd Font Med", 0, 24)); // NOI18N
+        jLabel55.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel55.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Images/favicon.png"))); // NOI18N
+        jLabel55.setText("My Hotel");
+        jPanel3.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 200, 50));
 
         LastName.setBackground(new java.awt.Color(255, 255, 255));
         LastName.setForeground(new java.awt.Color(0, 0, 0));
@@ -280,12 +329,6 @@ public class Register extends javax.swing.JFrame {
         jLabel54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Images/logo.png"))); // NOI18N
         jPanel3.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 260, -1));
 
-        jLabel55.setFont(new java.awt.Font("FiraCode Nerd Font Med", 0, 24)); // NOI18N
-        jLabel55.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel55.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Images/favicon.png"))); // NOI18N
-        jLabel55.setText("My Hotel");
-        jPanel3.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 200, 50));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -378,6 +421,14 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TypeDocumentActionPerformed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        dispose();
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1AncestorAdded
+
     private void SetTypesUser(){
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(typesUser);
         TypeDocument.setModel(model);
@@ -466,6 +517,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField Phone;
     private javax.swing.JButton RegisterButton2;
     private javax.swing.JComboBox<String> TypeDocument;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
@@ -484,6 +536,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
