@@ -1,14 +1,10 @@
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\ConecctionDB\DatabaseConnection.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Register.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\bookshotell\BooksHotell.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Controllers\UserController.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Users\HomeView.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Users\ImageIconExample.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Users\AdminView.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Users\HomeUser.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Models\User.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\ConecctionDB\MongoDBConnection.java
-C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Users\UserView.java
+C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Controllers\UserController.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Services\IUserService.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Login.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Services\UserService.java
+C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\HomeView.java

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.Users;
+package Views;
 
 import Views.Login;
 
@@ -25,6 +25,7 @@ public class HomeView extends javax.swing.JFrame {
         this.user = user;
         
         setText();
+        configureMenuOptions();
         
         
     }
@@ -42,6 +43,9 @@ public class HomeView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         LogoutLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        Option1 = new javax.swing.JLabel();
+        Option2 = new javax.swing.JLabel();
+        Option3 = new javax.swing.JLabel();
         WelcomeLabel = new javax.swing.JLabel();
         UserName = new javax.swing.JLabel();
         ImageUser = new javax.swing.JLabel();
@@ -85,15 +89,61 @@ public class HomeView extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(6, 134, 190));
 
+        Option1.setBackground(new java.awt.Color(136, 212, 234));
+        Option1.setForeground(new java.awt.Color(255, 255, 255));
+        Option1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Option1.setText("Option1");
+        Option1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Option1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Option1MouseClicked(evt);
+            }
+        });
+
+        Option2.setBackground(new java.awt.Color(136, 212, 234));
+        Option2.setForeground(new java.awt.Color(255, 255, 255));
+        Option2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Option2.setText("Option1");
+        Option2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Option2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Option2MouseClicked(evt);
+            }
+        });
+
+        Option3.setBackground(new java.awt.Color(136, 212, 234));
+        Option3.setForeground(new java.awt.Color(255, 255, 255));
+        Option3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Option3.setText("Option1");
+        Option3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Option3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Option3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(Option1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Option2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(Option3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(392, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Option1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(Option3, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(Option2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
@@ -141,7 +191,7 @@ public class HomeView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +222,38 @@ public class HomeView extends javax.swing.JFrame {
         disposeAndShowLogin();
     }//GEN-LAST:event_LogoutLabelMouseClicked
 
+    private void configureMenuOptions(){
+        if(user.getTypeUser().equals("Admin")){
+            Option1.setText("Room Manager");
+            Option2.setVisible(false);
+            Option3.setVisible(false);
+            
+        } else {
+            Option1.setText("Rooms");
+            Option2.setText("Reservations");
+            Option3.setText("Reservation history");
+            Option2.setVisible(true);
+            Option3.setVisible(true);
+        }
+    }
+
+    
+    private void Option1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Option1MouseClicked
+        if(user.getTypeUser().equals("Admin")){
+            dispose();
+        } else {
+            
+        }
+    }//GEN-LAST:event_Option1MouseClicked
+
+    private void Option2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Option2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Option2MouseClicked
+
+    private void Option3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Option3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Option3MouseClicked
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -179,6 +261,9 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel ImageUser;
     private javax.swing.JLabel LogoutLabel;
     private javax.swing.JLabel NameLogo;
+    private javax.swing.JLabel Option1;
+    private javax.swing.JLabel Option2;
+    private javax.swing.JLabel Option3;
     private javax.swing.JLabel UserName;
     private javax.swing.JLabel WelcomeLabel;
     private javax.swing.JPanel jPanel1;
