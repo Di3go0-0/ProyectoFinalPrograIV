@@ -11,13 +11,11 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 
 import Models.User;
-import ConecctionDB.MongoDBConnection;
 import Controllers.UserController;
 
  
 
 public class Register extends javax.swing.JFrame {
-    private MongoDBConnection mongoConnection = new MongoDBConnection();
     private UserController userController;
     
     
@@ -29,8 +27,7 @@ public class Register extends javax.swing.JFrame {
         setResizable(false); // Hacer que la ventana no sea redimensionable
         SetTypesUser();
         
-        mongoConnection.connect();
-        userController = new UserController(mongoConnection);
+        userController = new UserController();
     }
 
     /**
@@ -382,13 +379,6 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterButton2FocusGained
 
     private void RegisterButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButton2ActionPerformed
-        
-        
-        if (!mongoConnection.isConexionExitosa()) {
-            showMessageDialog(null, "Data Base is not connected.", "Error", ERROR_MESSAGE);
-            return;
-        }
-
         if (!registerHandler()) {
             showMessageDialog(null, "All fields are required", "Error", ERROR_MESSAGE);
             return;
@@ -399,10 +389,9 @@ public class Register extends javax.swing.JFrame {
             return;
         }
 
-        if(!userController.checkUserExistence(Email.getText())){
+        if(!userController.userExist(Email.getText())){
             if (registerUser()) {
                 showMessageDialog(null, "User created successfully.", "Success", INFORMATION_MESSAGE);
-                mongoConnection.close();
                 disposeAndShowLoginWindow();
             } else {
                 showMessageDialog(null, "The user can't be created", "Error", ERROR_MESSAGE);
@@ -413,7 +402,6 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterButton2ActionPerformed
 
     private void LoginButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButton2ActionPerformed
-        mongoConnection.close();
         disposeAndShowLoginWindow();
     }//GEN-LAST:event_LoginButton2ActionPerformed
 
@@ -467,7 +455,7 @@ public class Register extends javax.swing.JFrame {
     
     private boolean registerUser(){
 
-        userController = new UserController(mongoConnection);
+        
                 
         String typeDocument = TypeDocument.getSelectedItem().toString();
         String id = ID.getText();
@@ -490,7 +478,7 @@ public class Register extends javax.swing.JFrame {
                             password, 
                             "User");
         
-        if(userController.Register(user)){
+        if(userController.register(user)){
            return true; 
         }else{
            return false;

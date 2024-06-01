@@ -6,7 +6,6 @@ import java.util.List;
 import ConecctionDB.MongoDBConnection;
 import Interfaces.IRoomsService;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -17,12 +16,12 @@ import org.bson.types.ObjectId;
  * Servicio para gestionar las habitaciones.
  * Implementa la interfaz IRoomsService.
  */
-public class RoomsService implements IRoomsService {
-    private final MongoCollection<Document> roomCollection;
+public class RoomsService extends MongoDBConnection implements IRoomsService {
+    private MongoCollection<Document> roomCollection;
 
-    public RoomsService(MongoDBConnection connection) {
-        MongoDatabase database = connection.getDatabase();
-        roomCollection = database.getCollection("Rooms");
+    public RoomsService() {
+        connect(); // Llama al método connect() de MongoDBConnection para establecer la conexión
+        this.roomCollection = getDatabase().getCollection("Rooms"); // Obtén la colección después de la conexión
     }
 
     private Document convertirRoomADocument(Room room) {
@@ -70,10 +69,9 @@ public class RoomsService implements IRoomsService {
             }
             return true;
         } catch (IllegalArgumentException e) {
-                System.out.println("Error: El ID de la habitación no es válido.");
-                e.printStackTrace();
-                return false;
-            }
+            System.out.println("Error: El ID de la habitación no es válido.");
+            return false;
+        }
     }
 
     @Override
@@ -92,7 +90,7 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public List<Room> list(String title) {
+    public List<Room> list() {
         List<Room> rooms = new ArrayList<>();
         for (Document document : roomCollection.find()) {
             rooms.add(convertirDocumentARoom(document));

@@ -5,10 +5,8 @@
 package Views.Panels;
 
 import javax.swing.table.DefaultTableModel;
-import ConecctionDB.MongoDBConnection;
-import Models.Room;
+
 import Controllers.RoomController;
-import java.util.List;
 import Views.Panels.UpRoom;
 import Views.Home;
 /**
@@ -16,12 +14,12 @@ import Views.Home;
  * @author Administrator
  */
 public class RoomsPanel extends javax.swing.JPanel {
-    private MongoDBConnection mongoConexion = new MongoDBConnection();
+    private RoomController roomController = new RoomController();
+
     private boolean isAdmin = false;
     public RoomsPanel(boolean isAdmin) {
         initComponents();
         this.isAdmin = isAdmin;
-        mongoConexion.connect();
         LoadRooms();
         loadOptions();
         
@@ -135,7 +133,6 @@ public class RoomsPanel extends javax.swing.JPanel {
         if (jTable1.getSelectedRow() > -1) {
             try {
                 String roomId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-                RoomController roomController = new RoomController(mongoConexion);
                 Home.ShowJPanel(new UpRoom(roomController.getRoomByID(roomId)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -146,7 +143,6 @@ public class RoomsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
-        RoomController roomController = new RoomController(mongoConexion);
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         if (jTable1.getSelectedRows().length < 1) {
             javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more books to delete.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -172,9 +168,8 @@ public class RoomsPanel extends javax.swing.JPanel {
     
     private void LoadRooms() {
         try {
-            RoomController roomController = new RoomController(mongoConexion);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            roomController.list("").forEach((u) -> model.addRow(new Object[]{u.getId(), u.getNumber(), u.getType(), u.getCapacity(),u.getPriceNight()}));
+            roomController.list().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getNumber(), u.getType(), u.getCapacity(),u.getPriceNight()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

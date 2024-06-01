@@ -18,21 +18,18 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class UpRoom extends javax.swing.JPanel {
 
-    private MongoDBConnection mongoConexion = new MongoDBConnection();
-    private RoomController roomController;
+    private RoomController roomController = new RoomController();
     private Room room;
+    
     private boolean isEdition = false;
+    
     public UpRoom() {
         initComponents();
-        mongoConexion.connect();
-        
-        roomController = new RoomController(mongoConexion);
+     
     }
     public UpRoom(Room room) {
         initComponents();
-        mongoConexion.connect();
-        
-        roomController = new RoomController(mongoConexion);
+       
         isEdition = true;
         this.room = room;
         edition();

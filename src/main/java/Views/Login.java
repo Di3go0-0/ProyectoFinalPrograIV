@@ -15,7 +15,6 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 public class Login extends javax.swing.JFrame {
 
-    private MongoDBConnection mongoConnection = new MongoDBConnection();
     private UserController userController;
     private User user;
     public Login() {
@@ -23,9 +22,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null); 
         setResizable(false); // Hacer que la ventana no sea redimensionable
         
-        mongoConnection.connect();
-        userController = new UserController(mongoConnection);
-
+        userController = new UserController();
         
     }
 
@@ -202,11 +199,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        if (!mongoConnection.isConexionExitosa()) {
-            showMessageDialog(null, "Data Base is not connected.", "Error", ERROR_MESSAGE);
-            return;
-        }
-
+        
         if(allFields()){
             showMessageDialog(null, "All fields are required", "Error", ERROR_MESSAGE);
             return;
@@ -221,15 +214,13 @@ public class Login extends javax.swing.JFrame {
         }
         showMessageDialog(null, "Login Succesfully.", "Success", INFORMATION_MESSAGE);
         
-        this.user = userController.getUser(Email.getText().trim());
-        mongoConnection.close();
+        this.user = userController.getUserByEmail(Email.getText().trim());
        
         disposeAndShowUserView();
         
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
-        mongoConnection.close();
         disposeAndShowRegister();
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
@@ -258,7 +249,7 @@ public class Login extends javax.swing.JFrame {
         return email.isEmpty() || passwordChars.length == 0;
     }
     private boolean checkUserExist(){
-         if(userController.checkUserExistence(Email.getText().trim())){
+         if(userController.userExist(Email.getText().trim())){
              return true;
          }
             showMessageDialog(null, "User does not exist. Please register.", "Error", ERROR_MESSAGE);
@@ -270,7 +261,7 @@ public class Login extends javax.swing.JFrame {
         char[] passwordChars = Password.getPassword();
         String passwordString = new String(passwordChars);
                 
-        return userController.Login(email, passwordString);
+        return userController.login(email, passwordString);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

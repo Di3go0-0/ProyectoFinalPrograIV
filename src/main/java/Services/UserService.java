@@ -1,7 +1,6 @@
 package Services;
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import ConecctionDB.MongoDBConnection;
 import Models.User;
 import org.bson.Document;
@@ -9,11 +8,8 @@ import com.mongodb.MongoException;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
-import Models.User;
-
-public class UserService {
-    private final MongoCollection<Document> userCollection;
-    
+public class UserService extends MongoDBConnection {
+    private MongoCollection<Document> userCollection;
     private User loggedUser;
 
     public User getLoggedUser() {
@@ -23,12 +19,10 @@ public class UserService {
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
     }
-    
-    
 
-    public UserService(MongoDBConnection connection) {
-        MongoDatabase database = connection.getDatabase();
-        userCollection = database.getCollection("Users");
+    public UserService() {
+        connect(); // Llama al método connect() de MongoDBConnection para establecer la conexión
+        this.userCollection = getDatabase().getCollection("Users"); // Obtén la colección después de la conexión
         this.addAdmin();
     }
 
@@ -37,7 +31,7 @@ public class UserService {
         Document usuarioExistente = userCollection.find(filter).first();
         return usuarioExistente != null;
     }
-    
+
     private Document convertirUsuarioADocument(User user) {
         return new Document("typeCC", user.getTypeCC())
                 .append("cc", user.getCC())
@@ -50,7 +44,7 @@ public class UserService {
                 .append("password", user.getPassword())
                 .append("typeUser", user.getTypeUser());
     }
-    
+
     private boolean insertUser(Document usuarioDoc) {
         try {
             userCollection.insertOne(usuarioDoc);
@@ -61,18 +55,18 @@ public class UserService {
             return false; // Error al agregar usuario
         }
     }
-    
-    public boolean addUser(User user) {
-        if (userExist(user.getCC())) {
-            System.out.println("El usuario con cc " + user.getCC() + " ya existe.");
+
+    public boolean register(User user) {
+        if (userExist(user.getEmail())) {
+            System.out.println("El usuario con email " + user.getEmail() + " ya existe.");
             return false; // Usuario ya existe
         }
 
         Document usuarioDoc = convertirUsuarioADocument(user);
         return insertUser(usuarioDoc);
     }
-    
-    private void addAdmin(){
+
+    private void addAdmin() {
         User Admin = new User("CC",
                 "12345",
                 "Juan",
@@ -85,10 +79,11 @@ public class UserService {
                 "Admin");
 
         if (!userExist(Admin.getEmail())) {
-            this.addUser(Admin);
+            this.register(Admin);
         }
     }
-   public boolean login(String email, String password) {
+
+    public boolean login(String email, String password) {
         // Filtrar por el correo electrónico proporcionado
         Bson filter = Filters.eq("email", email);
         // Buscar en la base de datos
@@ -113,9 +108,7 @@ public class UserService {
             return false;
         }
     }
-    
-   
-    
+
     public User getUserByEmail(String email) {
         Bson filter = Filters.eq("email", email);
         Document usuario = userCollection.find(filter).first();
@@ -141,7 +134,4 @@ public class UserService {
             return null;
         }
     }
-    
-
-    
 }
