@@ -273,7 +273,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_Option1ActionPerformed
 
     private void Option2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option2ActionPerformed
-        switchPanel(new ReservationsPanel());
+        switchPanel(new ReservationsPanel(this.user));
     }//GEN-LAST:event_Option2ActionPerformed
 
     private void Option3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option3ActionPerformed
@@ -302,7 +302,7 @@ public class Home extends javax.swing.JFrame {
         
         if(user.getTypeUser().equals("Admin")){
             Option1.setText("Room Manager");
-            Option2.setVisible(false);
+            Option2.setText("Bookings");
             Option3.setVisible(false);
             isAdmin = true;
         }

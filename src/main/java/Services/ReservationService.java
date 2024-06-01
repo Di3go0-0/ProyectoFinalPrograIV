@@ -94,6 +94,14 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         }
         return reservations;
     }
+    
+    public List<Reservation> listReservationAdmin() {
+        List<Reservation> reservations = new ArrayList<>();
+        for (Document document : reservationCollection.find()) {
+            reservations.add(convertirDocumentARoom(document));
+        }
+        return reservations;
+    }
 
     @Override
     public Reservation getReservationById(String reservationId) {

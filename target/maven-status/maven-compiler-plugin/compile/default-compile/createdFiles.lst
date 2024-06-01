@@ -32,6 +32,7 @@ Views\Panels\Booking$3.class
 Views\Panels\RoomsPanel$2.class
 Views\Options\CreateRooms$6.class
 Controllers\ReservationController.class
+Views\Panels\ReservationsPanel$1.class
 Views\Panels\ReservationsPanel.class
 Views\Options\CreateRooms$3.class
 Views\Register$7.class

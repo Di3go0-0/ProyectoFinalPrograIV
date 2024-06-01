@@ -247,6 +247,8 @@ public class Booking extends javax.swing.JPanel {
 
         return type.isEmpty() || capacity.isEmpty();
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CapacityLabel;
