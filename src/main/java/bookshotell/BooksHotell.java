@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package bookshotell;
-import Views.Options.CreateRooms;
+import Views.Prueba;
 import Views.Login;
 
 
@@ -18,7 +18,7 @@ public class BooksHotell {
      */
     public static void main(String[] args) {
         
-        CreateRooms view = new CreateRooms();
+        Login view = new Login();
         view.setVisible(true);
     }
     

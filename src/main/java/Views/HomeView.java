@@ -173,7 +173,7 @@ public class HomeView extends javax.swing.JFrame {
         NameLogo.setForeground(new java.awt.Color(0, 0, 0));
         NameLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/Images/favicon.png"))); // NOI18N
         NameLogo.setText("My Hotel");
-        jPanel1.add(NameLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, 50));
+        jPanel1.add(NameLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 200, 50));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -4,10 +4,10 @@ package Models;
 
 public class Room {
     private String id;
-    private String Number;
-    private String Type;
-    private String Capacity;
-    private String PriceNight;
+    private String number;
+    private String type;
+    private String capacity;
+    private String priceNight;
 
     
     public Room(String id,
@@ -17,10 +17,10 @@ public class Room {
                 String PriceNight){
         
         this.id = id;
-        this.Number = Number;
-        this.Type = Type;
-        this.Capacity = Capacity;
-        this.PriceNight = PriceNight;
+        this.number = Number;
+        this.type = Type;
+        this.capacity = Capacity;
+        this.priceNight = PriceNight;
     
     }
     
@@ -29,24 +29,13 @@ public class Room {
                 String Capacity,
                 String PriceNight){
         
-        this.Number = Number;
-        this.Type = Type;
-        this.Capacity = Capacity;
-        this.PriceNight = PriceNight;
+        this.number = Number;
+        this.type = Type;
+        this.capacity = Capacity;
+        this.priceNight = PriceNight;
     
     }
 
-    public String getNumber() {
-        return Number;
-    }
-
-    public void setNumber(String Number) {
-        this.Number = Number;
-    }
-    
-    public Room(){}
-    
-    
     public String getId() {
         return id;
     }
@@ -55,29 +44,36 @@ public class Room {
         this.id = id;
     }
 
-    public String getType() {
-        return Type;
+    public String getNumber() {
+        return number;
     }
 
-    public void setType(String Type) {
-        this.Type = Type;
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
-    public void setCapacity(String Capacity) {
-        this.Capacity = Capacity;
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     public String getPriceNight() {
-        return PriceNight;
+        return priceNight;
     }
 
-    public void setPriceNight(String PriceNight) {
-        this.PriceNight = PriceNight;
+    public void setPriceNight(String priceNight) {
+        this.priceNight = priceNight;
+ 
     }
-    
-    
 }
