@@ -14,6 +14,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
@@ -33,11 +34,10 @@ public class Booking extends javax.swing.JPanel {
         RoomNumber.setText("Room number: " + room.getNumber());  
     }
     
-     public Booking(Reservation reservation, Room room, User user) {
+     public Booking(Reservation reservation, User user) {
         initComponents();
         
         this.reservation = reservation;
-        this.room = room;
         this.user = user;
         
         isEdition = true;
@@ -163,16 +163,19 @@ public class Booking extends javax.swing.JPanel {
             return;
         }
 
+        if(!comprobateDates()){
+            return;
+        }
         if (isEdition) {
             updateRoom();
         } else {
-            createRoom(); 
+            createBooking(); 
         }
 
         Home.ShowJPanel(new RoomsPanel(this.user));
     }//GEN-LAST:event_CreateButtonActionPerformed
    
-    private void createRoom() {
+    private void createBooking() {
         String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
                                                      DateExit.getText(), 
                                                      room.getPriceNight());
@@ -183,30 +186,31 @@ public class Booking extends javax.swing.JPanel {
                                 room.getNumber(),
                                 DateEnter.getText().trim(),
                                 DateExit.getText().trim(),
-                                totalPrice);
+                                totalPrice,
+                                room.getPriceNight());
 
         if (!reservationController.create(reservation)) {
-            showMessageDialog(null, "The room was not created", "Error", ERROR_MESSAGE);
+            showMessageDialog(null, "The Book was not created", "Error", ERROR_MESSAGE);
             return;
         }
 
-        showMessageDialog(null, "The room was created", "Success", INFORMATION_MESSAGE);
+        showMessageDialog(null, "The Book was created", "Success", INFORMATION_MESSAGE);
     }
     
     private void updateRoom() {
         String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
                                                      DateExit.getText(), 
-                                                     room.getPriceNight());
+                                                     reservation.getPriceNigth());
         this.reservation.setDateEntry(DateEnter.getText().trim());
         this.reservation.setDateExit(DateExit.getText().trim());
-        this.reservation.setPrice(totalPrice);
+        this.reservation.setTotalPrice(totalPrice);
 
         if (!reservationController.update(this.reservation)) {
-            showMessageDialog(null, "The room was not created", "Error", ERROR_MESSAGE);
+            showMessageDialog(null, "The Book was not created", "Error", ERROR_MESSAGE);
             return;
         }
 
-        showMessageDialog(null, "The room was created", "Success", INFORMATION_MESSAGE);
+        showMessageDialog(null, "The Book was created", "Success", INFORMATION_MESSAGE);
     }
     
     
@@ -246,6 +250,32 @@ public class Booking extends javax.swing.JPanel {
         String capacity = DateExit.getText().trim();
 
         return type.isEmpty() || capacity.isEmpty();
+    }
+
+    private boolean comprobateDates(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate entryDate = null;
+        LocalDate exitDate = null;
+
+        try {
+            entryDate = LocalDate.parse(DateEnter.getText(), formatter);
+            exitDate = LocalDate.parse(DateExit.getText(), formatter);
+        } catch (DateTimeParseException e) {
+            showMessageDialog(null, "Dates must be in the format dd/MM/yyyy", "Error", ERROR_MESSAGE);
+            return false;
+        }
+
+        LocalDate now = LocalDate.now();
+        if (entryDate.isBefore(now) || exitDate.isBefore(now)) {
+            showMessageDialog(null, "Dates must be in the future", "Error", ERROR_MESSAGE);
+            return false;
+        }
+
+        if (entryDate.isAfter(exitDate)) {
+            showMessageDialog(null, "The entry date must be before the exit date", "Error", ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
     
     

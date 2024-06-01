@@ -26,7 +26,8 @@ public class ReservationService extends MongoDBConnection implements IReservatio
                 .append("numberRoom", reservation.getNumberRoom())
                 .append("dateEntry", reservation.getDateEntry())
                 .append("dateExit", reservation.getDateExit())
-                .append("totalPrice", reservation.getPrice());
+                .append("totalPrice", reservation.getTotalPrice())
+                .append("priceNigth", reservation.getPriceNigth());
         if (reservation.getId() != null && !reservation.getId().isEmpty()) {
             document.append("_id", new ObjectId(reservation.getId()));
         }
@@ -41,7 +42,8 @@ public class ReservationService extends MongoDBConnection implements IReservatio
                 document.getString("numberRoom"),
                 document.getString("dateEntry"),
                 document.getString("dateExit"),
-                document.getString("totalPrice")
+                document.getString("totalPrice"),
+                document.getString("priceNigth")
         );
     }
     
@@ -61,11 +63,10 @@ public class ReservationService extends MongoDBConnection implements IReservatio
 
             UpdateResult result = reservationCollection.replaceOne(filter, document);
             long modifiedCount = result.getModifiedCount();
-            if (modifiedCount == 0) {
-                return false;
-            }
-            return true;
+            return modifiedCount > 0;
         } catch (IllegalArgumentException e) {
+            // Log the exception and/or inform the user
+            System.err.println("Error al actualizar la reservación: " + e.getMessage());
             return false;
         }
     }

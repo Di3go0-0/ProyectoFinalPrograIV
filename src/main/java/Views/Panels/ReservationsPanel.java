@@ -7,6 +7,8 @@ package Views.Panels;
 import Models.User;
 import javax.swing.table.DefaultTableModel;
 import Controllers.ReservationController;
+import Models.Reservation;
+import Views.Home;
 
 /**
  *
@@ -74,9 +76,19 @@ public class ReservationsPanel extends javax.swing.JPanel {
 
         Update.setBackground(new java.awt.Color(0, 153, 255));
         Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
 
         Delete.setBackground(new java.awt.Color(0, 153, 255));
         Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,11 +112,42 @@ public class ReservationsPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Update, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Delete, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        if (jTable1.getSelectedRow() > -1) {
+            String id = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+            Reservation reservation = reservationController.getReservationById(id);
+            if (reservation != null) {
+                Home.ShowJPanel(new Booking(reservation, this.user));
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Reservation not found.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more rooms.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRows().length < 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more Rooms to delete.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            for (int i : jTable1.getSelectedRows()) {
+                try {
+                    reservationController.delete((String) jTable1.getValueAt(i, 0));
+                    model.removeRow(i);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_DeleteActionPerformed
 
     private void admin(){
         if(user.getTypeUser().equals("Admin")){
@@ -122,7 +165,7 @@ public class ReservationsPanel extends javax.swing.JPanel {
     private void LoadBookingsUser() {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            reservationController.listReservationUser(this.user.getId()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getPrice()}));
+            reservationController.listReservationUser(this.user.getId()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -130,7 +173,7 @@ public class ReservationsPanel extends javax.swing.JPanel {
     private void LoadBookingsAdmin() {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            reservationController.listReservationAdmin().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getPrice()}));
+            reservationController.listReservationAdmin().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -16,24 +16,43 @@ public class Reservation {
     private String dateEntry;
     private String dateExit;
     private String totalPrice;
+    private String priceNigth;
 
-    public Reservation(String id, String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String price) {
+    public Reservation(String id, String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String totalPrice, String priceNigth) {
         this.id = id;
         this.idClient = idClient;
         this.idRoom = idRoom;
         this.numberRoom = numberRoom;
         this.dateEntry = dateEntry;
         this.dateExit = dateExit;
-        this.totalPrice = price;
+        this.totalPrice = totalPrice;
+        this.priceNigth = priceNigth;
     }
 
-    public Reservation(String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String price) {
+    public Reservation(String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String price, String priceNigth) {
         this.idClient = idClient;
         this.idRoom = idRoom;
         this.numberRoom = numberRoom;
         this.dateEntry = dateEntry;
         this.dateExit = dateExit;
         this.totalPrice = price;
+        this.priceNigth = priceNigth;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getPriceNigth() {
+        return priceNigth;
+    }
+
+    public void setPriceNigth(String priceNigth) {
+        this.priceNigth = priceNigth;
     }
 
     public String getIdClient() {
@@ -85,15 +104,4 @@ public class Reservation {
         this.dateExit = dateExit;
     }
 
-    public String getPrice() {
-        return totalPrice;
-    }
-
-    public void setPrice(String price) {
-        this.totalPrice = price;
-    }
-    
-    
-    
-    
 }

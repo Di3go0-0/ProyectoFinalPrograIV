@@ -24,7 +24,6 @@ Views\Panels\UpRoom$4.class
 Views\Options\CreateRooms$4.class
 Views\Panels\Booking.class
 Views\Register$8.class
-Views\Panels\HistoryPanel.class
 Views\Register$1.class
 Views\Panels\Booking$2.class
 Views\Panels\RoomsPanel.class

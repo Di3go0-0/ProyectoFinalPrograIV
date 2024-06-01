@@ -45,15 +45,14 @@ public class Home extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         Option1 = new javax.swing.JButton();
         Option2 = new javax.swing.JButton();
-        Option3 = new javax.swing.JButton();
         Image = new javax.swing.JLabel();
         Home = new javax.swing.JButton();
         Welcome = new javax.swing.JPanel();
         WelcomeLabel = new javax.swing.JLabel();
         TypeLabel = new javax.swing.JLabel();
+        Content = new javax.swing.JPanel();
         LogoutPanel = new javax.swing.JPanel();
         Logout = new javax.swing.JLabel();
-        Content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -99,17 +98,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        Option3.setBackground(new java.awt.Color(6, 134, 190));
-        Option3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Option3.setForeground(new java.awt.Color(255, 255, 255));
-        Option3.setText("History");
-        Option3.setBorder(null);
-        Option3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Option3ActionPerformed(evt);
-            }
-        });
-
         Image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/logo.png"))); // NOI18N
 
@@ -138,7 +126,6 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NavigationLayout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))))
-            .addComponent(Option3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Option1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -158,9 +145,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(Option1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Option2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Option3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(94, 94, 94))
         );
 
         Background.add(Navigation, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 250, 500));
@@ -199,7 +184,22 @@ public class Home extends javax.swing.JFrame {
                 .addGap(52, 52, 52))
         );
 
-        Background.add(Welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 80));
+        Background.add(Welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 440, 80));
+
+        Content.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
+        Content.setLayout(ContentLayout);
+        ContentLayout.setHorizontalGroup(
+            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+        ContentLayout.setVerticalGroup(
+            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+
+        Background.add(Content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 550, 420));
 
         LogoutPanel.setBackground(new java.awt.Color(0, 93, 139));
 
@@ -230,22 +230,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        Background.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 110, 80));
-
-        Content.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
-        Content.setLayout(ContentLayout);
-        ContentLayout.setHorizontalGroup(
-            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
-        );
-        ContentLayout.setVerticalGroup(
-            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-
-        Background.add(Content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 550, 420));
+        Background.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,10 +261,6 @@ public class Home extends javax.swing.JFrame {
         switchPanel(new ReservationsPanel(this.user));
     }//GEN-LAST:event_Option2ActionPerformed
 
-    private void Option3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option3ActionPerformed
-        switchPanel(new HistoryPanel());
-    }//GEN-LAST:event_Option3ActionPerformed
-
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
         switchPanel(new HomePanel());
     }//GEN-LAST:event_HomeActionPerformed
@@ -303,7 +284,6 @@ public class Home extends javax.swing.JFrame {
         if(user.getTypeUser().equals("Admin")){
             Option1.setText("Room Manager");
             Option2.setText("Bookings");
-            Option3.setVisible(false);
             isAdmin = true;
         }
         
@@ -331,7 +311,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Navigation;
     private javax.swing.JButton Option1;
     private javax.swing.JButton Option2;
-    private javax.swing.JButton Option3;
     private javax.swing.JLabel TypeLabel;
     private javax.swing.JPanel Welcome;
     private javax.swing.JLabel WelcomeLabel;
