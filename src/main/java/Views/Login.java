@@ -245,7 +245,7 @@ public class Login extends javax.swing.JFrame {
     
     private void disposeAndShowUserView(){
         dispose();
-        Prueba view = new Prueba(this.user);
+        Home view = new Home(this.user);
         view.setVisible(true);
     }
    

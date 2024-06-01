@@ -10,7 +10,7 @@ import Models.Room;
 import Controllers.RoomController;
 import java.util.List;
 import Views.Panels.UpRoom;
-import Views.Prueba;
+import Views.Home;
 /**
  *
  * @author Administrator
@@ -128,7 +128,7 @@ public class RoomsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
-        Prueba.ShowJPanel(new UpRoom());
+        Home.ShowJPanel(new UpRoom());
     }//GEN-LAST:event_CreateActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
@@ -136,7 +136,7 @@ public class RoomsPanel extends javax.swing.JPanel {
             try {
                 String roomId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
                 RoomController roomController = new RoomController(mongoConexion);
-                Prueba.ShowJPanel(new UpRoom(roomController.getRoomByID(roomId)));
+                Home.ShowJPanel(new UpRoom(roomController.getRoomByID(roomId)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

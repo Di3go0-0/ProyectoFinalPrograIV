@@ -14,11 +14,11 @@ import Models.User;
  *
  * @author Administrator
  */
-public class Prueba extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame {
 
     private boolean isAdmin = false;
     private User user;
-    public Prueba(User user) {
+    public Home(User user) {
         initComponents();
         setLocationRelativeTo(null);
         this.user = user;

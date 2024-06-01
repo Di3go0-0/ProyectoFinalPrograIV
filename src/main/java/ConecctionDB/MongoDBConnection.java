@@ -5,8 +5,9 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import io.github.cdimascio.dotenv.Dotenv;
+import Interfaces.IDatabaseConnection;
 
-public class MongoDBConnection implements DatabaseConnection {
+public class MongoDBConnection implements IDatabaseConnection {
     Dotenv dotenv = Dotenv.load();
 
     private MongoClient mongoClient;

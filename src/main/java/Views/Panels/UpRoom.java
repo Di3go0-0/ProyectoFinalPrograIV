@@ -7,7 +7,7 @@ package Views.Panels;
 import ConecctionDB.MongoDBConnection;
 import Controllers.RoomController;
 import Models.Room;
-import Views.Prueba;
+import Views.Home;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -201,7 +201,7 @@ public class UpRoom extends javax.swing.JPanel {
             createRoom();
         }
 
-        Prueba.ShowJPanel(new RoomsPanel(true));
+        Home.ShowJPanel(new RoomsPanel(true));
     }//GEN-LAST:event_CreateButtonActionPerformed
 
     private boolean checkUserExist(){
