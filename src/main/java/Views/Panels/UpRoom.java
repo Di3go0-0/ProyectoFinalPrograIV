@@ -7,10 +7,12 @@ package Views.Panels;
 import ConecctionDB.MongoDBConnection;
 import Controllers.RoomController;
 import Models.Room;
+import Models.User;
 import Views.Home;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
+
 
 /**
  *
@@ -20,16 +22,20 @@ public class UpRoom extends javax.swing.JPanel {
 
     private RoomController roomController = new RoomController();
     private Room room;
+    private User user;
     
     private boolean isEdition = false;
     
-    public UpRoom() {
+    public UpRoom(User user) {
         initComponents();
+        this.user = user;
      
     }
-    public UpRoom(Room room) {
+    public UpRoom(User user, Room room) {
         initComponents();
-       
+        
+        this.user = user;
+
         isEdition = true;
         this.room = room;
         edition();
@@ -63,6 +69,8 @@ public class UpRoom extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(550, 420));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(550, 420));
+        jPanel1.setPreferredSize(new java.awt.Dimension(550, 420));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Title.setFont(new java.awt.Font("FiraCode Nerd Font Mono SemBd", 0, 36)); // NOI18N
@@ -198,7 +206,7 @@ public class UpRoom extends javax.swing.JPanel {
             createRoom();
         }
 
-        Home.ShowJPanel(new RoomsPanel(true));
+        Home.ShowJPanel(new RoomsPanel(this.user));
     }//GEN-LAST:event_CreateButtonActionPerformed
 
     private boolean checkUserExist(){

@@ -10,7 +10,9 @@ Views\Panels\RoomsPanel$4.class
 Views\Panels\UpRoom$5.class
 Views\Register$13.class
 Views\Panels\HomePanel.class
+Views\Panels\Booking$1.class
 Views\Panels\UpRoom$2.class
+Services\ReservationService.class
 Views\Panels\RoomsPanel$1.class
 Views\Register$2.class
 Controllers\RoomController.class
@@ -20,12 +22,16 @@ Views\Register$11.class
 Views\Register$4.class
 Views\Panels\UpRoom$4.class
 Views\Options\CreateRooms$4.class
+Views\Panels\Booking.class
 Views\Register$8.class
 Views\Panels\HistoryPanel.class
 Views\Register$1.class
+Views\Panels\Booking$2.class
 Views\Panels\RoomsPanel.class
+Views\Panels\Booking$3.class
 Views\Panels\RoomsPanel$2.class
 Views\Options\CreateRooms$6.class
+Controllers\ReservationController.class
 Views\Panels\ReservationsPanel.class
 Views\Options\CreateRooms$3.class
 Views\Register$7.class

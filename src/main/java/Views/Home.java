@@ -269,7 +269,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutMouseClicked
 
     private void Option1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option1ActionPerformed
-        switchPanel(new RoomsPanel(isAdmin));
+        switchPanel(new RoomsPanel(this.user));
     }//GEN-LAST:event_Option1ActionPerformed
 
     private void Option2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option2ActionPerformed

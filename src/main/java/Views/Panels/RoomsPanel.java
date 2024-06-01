@@ -7,6 +7,7 @@ package Views.Panels;
 import javax.swing.table.DefaultTableModel;
 
 import Controllers.RoomController;
+import Models.User;
 import Views.Panels.UpRoom;
 import Views.Home;
 /**
@@ -15,11 +16,18 @@ import Views.Home;
  */
 public class RoomsPanel extends javax.swing.JPanel {
     private RoomController roomController = new RoomController();
-
+    private User user;
     private boolean isAdmin = false;
-    public RoomsPanel(boolean isAdmin) {
+    public RoomsPanel(User user) {
         initComponents();
-        this.isAdmin = isAdmin;
+        this.user = user;
+        
+        if(user.getTypeUser().equals("Admin")){
+            this.isAdmin = true; // Asignar true a isAdmin si el usuario es un administrador
+        } else {
+            this.isAdmin = false; // Asignar false a isAdmin si el usuario no es un administrador
+        }
+
         LoadRooms();
         loadOptions();
         
@@ -126,26 +134,43 @@ public class RoomsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
-        Home.ShowJPanel(new UpRoom());
+        if(isAdmin){
+            Home.ShowJPanel(new UpRoom(this.user));
+            return;
+        }
+        
+        if (jTable1.getSelectedRow() > -1) {
+            try {
+                String roomId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                Home.ShowJPanel(new Booking(roomController.getRoomByID(roomId), user));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more Rooms  b.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+            
+
+        
     }//GEN-LAST:event_CreateActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         if (jTable1.getSelectedRow() > -1) {
             try {
                 String roomId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-                Home.ShowJPanel(new UpRoom(roomController.getRoomByID(roomId)));
+                Home.ShowJPanel(new UpRoom(this.user, roomController.getRoomByID(roomId)));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar el libro a editar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more Rooms to update.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         if (jTable1.getSelectedRows().length < 1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more books to delete.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more Rooms to delete.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         } else {
             for (int i : jTable1.getSelectedRows()) {
                 try {
@@ -162,7 +187,7 @@ public class RoomsPanel extends javax.swing.JPanel {
         if(!this.isAdmin){
            Delete.setVisible(false);
            Update.setVisible(false);
-           Create.setText("To book");
+           Create.setText("Book");
         }
     }
     
