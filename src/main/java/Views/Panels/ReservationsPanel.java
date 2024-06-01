@@ -9,6 +9,10 @@ import javax.swing.table.DefaultTableModel;
 import Controllers.ReservationController;
 import Models.Reservation;
 import Views.Home;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -119,6 +123,10 @@ public class ReservationsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        if(!optionButton("Update")){
+            return;
+        }
+        
         if (jTable1.getSelectedRow() > -1) {
             String id = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
             Reservation reservation = reservationController.getReservationById(id);
@@ -134,6 +142,10 @@ public class ReservationsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        if(!optionButton("Delete")){
+            return;
+        }
+        
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         if (jTable1.getSelectedRows().length < 1) {
             javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more Rooms to delete.\n", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -178,6 +190,26 @@ public class ReservationsPanel extends javax.swing.JPanel {
             System.out.println(e.getMessage());
         }
     }
+    
+    private boolean optionButton(String deleteUpdate){
+        String DataEntry = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 4);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate reservationDate = LocalDate.parse(DataEntry, formatter);
+        LocalDate now = LocalDate.now();
+
+        if (reservationDate.isBefore(now)) {
+            showMessageDialog(null, "Cannot "+deleteUpdate+" the reservation because it has already passed", "Error", ERROR_MESSAGE);
+            return false;
+        }
+
+        if (reservationDate.isAfter(now.plusDays(10))) {
+            showMessageDialog(null, "Cannot "+deleteUpdate+" the reservation because it is within the stipulated period", "Error", ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Delete;

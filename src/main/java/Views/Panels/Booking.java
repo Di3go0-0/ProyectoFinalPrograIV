@@ -242,7 +242,7 @@ public class Booking extends javax.swing.JPanel {
         DateExit.setText(reservation.getDateExit());
         CreateButton.setText("Edit");
         Title.setText("Update Booking");
-        RoomNumber.setText("Room number: " + room.getNumber());
+        RoomNumber.setText("Room number: " + reservation.getNumberRoom());
     }
     
     private boolean allFields() {
