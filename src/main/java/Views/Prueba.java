@@ -16,6 +16,7 @@ import Models.User;
  */
 public class Prueba extends javax.swing.JFrame {
 
+    private boolean isAdmin = false;
     private User user;
     public Prueba(User user) {
         initComponents();
@@ -268,7 +269,7 @@ public class Prueba extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutMouseClicked
 
     private void Option1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option1ActionPerformed
-        switchPanel(new RoomsPanel());
+        switchPanel(new RoomsPanel(isAdmin));
     }//GEN-LAST:event_Option1ActionPerformed
 
     private void Option2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Option2ActionPerformed
@@ -293,21 +294,35 @@ public class Prueba extends javax.swing.JFrame {
         Content.repaint();
     }
     
+    
+    
     private void setInitialConfig(){
         WelcomeLabel.setText("Welcome" + " " + this.user.getName() + "!");
         TypeLabel.setText(this.user.getTypeUser());
         
         if(user.getTypeUser().equals("Admin")){
+            Option1.setText("Room Manager");
             Option2.setVisible(false);
             Option3.setVisible(false);
+            isAdmin = true;
         }
         
+    }
+    
+    public static void ShowJPanel(JPanel panel) {
+        panel.setSize(550, 420);
+        panel.setLocation(0, 0);
+
+        Content.removeAll();
+        Content.add(panel, BorderLayout.CENTER);
+        Content.revalidate();
+        Content.repaint();
     }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
-    private javax.swing.JPanel Content;
+    private static javax.swing.JPanel Content;
     private javax.swing.JButton Home;
     private javax.swing.JLabel Image;
     private javax.swing.JLabel Logout;

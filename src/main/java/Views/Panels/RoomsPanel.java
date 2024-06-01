@@ -5,20 +5,29 @@
 package Views.Panels;
 
 import javax.swing.table.DefaultTableModel;
-
+import ConecctionDB.MongoDBConnection;
+import Models.Room;
+import Controllers.RoomController;
+import java.util.List;
+import Views.Panels.UpRoom;
+import Views.Prueba;
 /**
  *
  * @author Administrator
  */
 public class RoomsPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form RoomsPanel
-     */
-    public RoomsPanel() {
+    private MongoDBConnection mongoConexion = new MongoDBConnection();
+    private boolean isAdmin = false;
+    public RoomsPanel(boolean isAdmin) {
         initComponents();
+        this.isAdmin = isAdmin;
+        mongoConexion.connect();
+        LoadRooms();
+        loadOptions();
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +37,7 @@ public class RoomsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        addButton = new javax.swing.JButton();
+        Create = new javax.swing.JButton();
         Update = new javax.swing.JButton();
         Delete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -36,21 +45,22 @@ public class RoomsPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(550, 420));
+        setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(550, 420));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        addButton.setBackground(new java.awt.Color(18, 90, 173));
-        addButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Create");
-        addButton.setBorderPainted(false);
-        addButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        addButton.addActionListener(new java.awt.event.ActionListener() {
+        Create.setBackground(new java.awt.Color(18, 90, 173));
+        Create.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Create.setForeground(new java.awt.Color(255, 255, 255));
+        Create.setText("Create");
+        Create.setBorderPainted(false);
+        Create.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Create.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                CreateActionPerformed(evt);
             }
         });
-        add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, -1, -1));
+        add(Create, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
 
         Update.setBackground(new java.awt.Color(18, 90, 173));
         Update.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -63,7 +73,7 @@ public class RoomsPanel extends javax.swing.JPanel {
                 UpdateActionPerformed(evt);
             }
         });
-        add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
+        add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, -1));
 
         Delete.setBackground(new java.awt.Color(18, 90, 173));
         Delete.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -76,42 +86,107 @@ public class RoomsPanel extends javax.swing.JPanel {
                 DeleteActionPerformed(evt);
             }
         });
-        add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, -1, -1));
+        add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, -1, -1));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
         jScrollPane1.setForeground(new java.awt.Color(0, 0, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Number", "Type", "Capacity", "Price/Night"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 470, 300));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-    }//GEN-LAST:event_addButtonActionPerformed
+    private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
+        Prueba.ShowJPanel(new UpRoom());
+    }//GEN-LAST:event_CreateActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        if (jTable1.getSelectedRow() > -1) {
+            try {
+                String roomId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                RoomController roomController = new RoomController(mongoConexion);
+                Prueba.ShowJPanel(new UpRoom(roomController.getRoomByID(roomId)));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debes seleccionar el libro a editar.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        RoomController roomController = new RoomController(mongoConexion);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRows().length < 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "You must select one or more books to delete.\n", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        } else {
+            for (int i : jTable1.getSelectedRows()) {
+                try {
+                    roomController.delete((String) jTable1.getValueAt(i, 0));
+                    model.removeRow(i);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_DeleteActionPerformed
     
-   
+    private void loadOptions(){
+        if(!this.isAdmin){
+           Delete.setVisible(false);
+           Update.setVisible(false);
+           Create.setText("To book");
+        }
+    }
+    
+    private void LoadRooms() {
+        try {
+            RoomController roomController = new RoomController(mongoConexion);
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            roomController.list("").forEach((u) -> model.addRow(new Object[]{u.getId(), u.getNumber(), u.getType(), u.getCapacity(),u.getPriceNight()}));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Create;
     private javax.swing.JButton Delete;
     private javax.swing.JButton Update;
-    private javax.swing.JButton addButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

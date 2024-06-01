@@ -1,4 +1,5 @@
 Views\Options\CreateRooms$1.class
+Views\Panels\UpRoom.class
 Views\Register$5.class
 Models\Room.class
 Views\Register$10.class
@@ -6,14 +7,20 @@ Services\RoomsService.class
 Views\Login$5.class
 Views\Prueba$4.class
 Views\Options\CreateRooms$5.class
+Views\Panels\RoomsPanel$4.class
+Views\Panels\UpRoom$5.class
 Views\Register$13.class
 Views\Panels\HomePanel.class
+Views\Panels\UpRoom$2.class
 Views\Panels\RoomsPanel$1.class
 Views\Register$2.class
+Controllers\RoomController.class
 Views\Options\CreateRooms$7.class
+Views\Panels\UpRoom$1.class
 Views\Prueba$5.class
 Views\Register$11.class
 Views\Register$4.class
+Views\Panels\UpRoom$4.class
 Views\Options\CreateRooms$4.class
 Views\Register$8.class
 Views\Prueba$1.class
@@ -34,6 +41,7 @@ Views\HomeView$3.class
 Views\Panels\RoomsPanel$3.class
 Views\Register$9.class
 Views\Register.class
+Views\Panels\UpRoom$3.class
 Interfaces\IRoomsService.class
 Views\Register$3.class
 Views\Prueba.class

@@ -24,8 +24,8 @@ public class Room {
     
     }
     
-    public Room(String Type,
-                String Number,
+    public Room(String Number,
+                String Type,
                 String Capacity,
                 String PriceNight){
         

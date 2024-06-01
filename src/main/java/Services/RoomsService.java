@@ -8,8 +8,10 @@ import Interfaces.IRoomsService;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  * Servicio para gestionar las habitaciones.
@@ -24,16 +26,19 @@ public class RoomsService implements IRoomsService {
     }
 
     private Document convertirRoomADocument(Room room) {
-        return new Document("id", room.getId())
-                .append("number", room.getNumber())
+        Document document = new Document("number", room.getNumber())
                 .append("type", room.getType())
                 .append("capacity", room.getCapacity())
                 .append("priceNight", room.getPriceNight());
+        if (room.getId() != null && !room.getId().isEmpty()) {
+            document.append("_id", new ObjectId(room.getId()));
+        }
+        return document;
     }
 
     private Room convertirDocumentARoom(Document document) {
         return new Room(
-                document.getString("id"),
+                document.getObjectId("_id").toString(),
                 document.getString("number"),
                 document.getString("type"),
                 document.getString("capacity"),
@@ -42,7 +47,7 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public boolean create(Room room){
+    public boolean create(Room room) {
         if (roomExist(room.getNumber())) {
             return false;
         }
@@ -52,26 +57,42 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public boolean update(Room room){
-        Bson filter = Filters.eq("id", room.getId());
-        Document document = convertirRoomADocument(room);
-        if (roomCollection.replaceOne(filter, document).getModifiedCount() == 0) {
-            return false;
-        }
-        return true;
+    public boolean update(Room room) {
+        try {
+            ObjectId objectId = new ObjectId(room.getId());
+            Bson filter = Filters.eq("_id", objectId);
+            Document document = convertirRoomADocument(room);
+
+            UpdateResult result = roomCollection.replaceOne(filter, document);
+            long modifiedCount = result.getModifiedCount();
+            if (modifiedCount == 0) {
+                return false;
+            }
+            return true;
+        } catch (IllegalArgumentException e) {
+                System.out.println("Error: El ID de la habitación no es válido.");
+                e.printStackTrace();
+                return false;
+            }
     }
 
     @Override
-    public boolean delete(String roomId){
-        Bson filter = Filters.eq("id", roomId);
-        if (roomCollection.deleteOne(filter).getDeletedCount() == 0) {
-            return false;
+    public boolean delete(String id) {
+        try {
+            ObjectId objectId = new ObjectId(id);
+            Bson filter = Filters.eq("_id", objectId);
+            if (roomCollection.deleteOne(filter).getDeletedCount() == 0) {
+                return false; // No se encontró ningún documento para eliminar
+            }
+            return true; // Se eliminó correctamente
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return false; // El formato del ID no es válido
         }
-        return true;
     }
 
     @Override
-    public List<Room> list(String title){
+    public List<Room> list(String title) {
         List<Room> rooms = new ArrayList<>();
         for (Document document : roomCollection.find()) {
             rooms.add(convertirDocumentARoom(document));
@@ -80,8 +101,9 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public Room getRoomByID(String roomId){
-        Bson filter = Filters.eq("id", roomId);
+    public Room getRoomByID(String id) {
+        ObjectId objectId = new ObjectId(id);
+        Bson filter = Filters.eq("_id", objectId);
         Document document = roomCollection.find(filter).first();
         if (document == null) {
             return null;
