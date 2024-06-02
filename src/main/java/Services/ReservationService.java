@@ -24,10 +24,12 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         Document document = new Document("idClient", reservation.getIdClient())
                 .append("idRoom", reservation.getIdRoom())
                 .append("numberRoom", reservation.getNumberRoom())
+                .append("numberPersons", reservation.getNumberPersons())
                 .append("dateEntry", reservation.getDateEntry())
                 .append("dateExit", reservation.getDateExit())
                 .append("totalPrice", reservation.getTotalPrice())
-                .append("priceNigth", reservation.getPriceNigth());
+                .append("priceNigth", reservation.getPriceNigth())
+                .append("capacityRoom", reservation.getCapacityRoom());
         if (reservation.getId() != null && !reservation.getId().isEmpty()) {
             document.append("_id", new ObjectId(reservation.getId()));
         }
@@ -40,10 +42,12 @@ public class ReservationService extends MongoDBConnection implements IReservatio
                 document.getString("idClient"),
                 document.getString("idRoom"),
                 document.getString("numberRoom"),
+                document.getString("numberPersons"),
                 document.getString("dateEntry"),
                 document.getString("dateExit"),
                 document.getString("totalPrice"),
-                document.getString("priceNigth")
+                document.getString("priceNigth"),
+                document.getString("capacityRoom")
         );
     }
     
@@ -119,5 +123,14 @@ public class ReservationService extends MongoDBConnection implements IReservatio
             e.printStackTrace();
             return null; // El formato del ID no es válido
         }
+    }
+    
+    public List<Reservation> listReservationsRoom(String idRoom) {
+        List<Reservation> reservations = new ArrayList<>();
+        Bson filter = Filters.eq("idRoom", idRoom); // Crear filtro para idClient
+        for (Document document : reservationCollection.find(filter)) {
+            reservations.add(convertirDocumentARoom(document));
+        }
+        return reservations;
     }
 }

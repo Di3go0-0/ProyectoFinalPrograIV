@@ -49,14 +49,14 @@ public class ReservationsPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "IdClient", "IdRoom", "# Number", "Date Entry", "Date Exit", "Total Price"
+                "Id", "IdClient", "IdRoom", "# Number", "# Persons", "Date Entry", "Date Exit", "Total Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,6 +76,7 @@ public class ReservationsPanel extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
         }
 
         Update.setBackground(new java.awt.Color(0, 153, 255));
@@ -177,7 +178,7 @@ public class ReservationsPanel extends javax.swing.JPanel {
     private void LoadBookingsUser() {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            reservationController.listReservationUser(this.user.getId()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
+            reservationController.listReservationUser(this.user.getId()).forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getNumberPersons(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -185,14 +186,14 @@ public class ReservationsPanel extends javax.swing.JPanel {
     private void LoadBookingsAdmin() {
         try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            reservationController.listReservationAdmin().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
+            reservationController.listReservationAdmin().forEach((u) -> model.addRow(new Object[]{u.getId(), u.getIdClient(), u.getIdRoom(), u.getNumberRoom(),u.getNumberPersons(),u.getDateEntry(), u.getDateExit(), u.getTotalPrice()}));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
     
     private boolean optionButton(String deleteUpdate){
-        String DataEntry = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 4);
+        String DataEntry = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 5);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate reservationDate = LocalDate.parse(DataEntry, formatter);
         LocalDate now = LocalDate.now();
@@ -202,8 +203,8 @@ public class ReservationsPanel extends javax.swing.JPanel {
             return false;
         }
 
-        if (reservationDate.isAfter(now.plusDays(10))) {
-            showMessageDialog(null, "Cannot "+deleteUpdate+" the reservation because it is within the stipulated period", "Error", ERROR_MESSAGE);
+        if (reservationDate.isBefore(now.plusDays(10))) {
+            showMessageDialog(null, "Cannot "+deleteUpdate+" the reservation because it is not within the stipulated period", "Error", ERROR_MESSAGE);
             return false;
         }
 

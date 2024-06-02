@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 public class Booking extends javax.swing.JPanel {
@@ -31,7 +34,8 @@ public class Booking extends javax.swing.JPanel {
         this.room = room;
         this.user = user;
         
-        RoomNumber.setText("Room number: " + room.getNumber());  
+        Capacity.setText("Room number: " + room.getNumber());  
+        Capacity.setText("Capacity: " + room.getCapacity());
     }
     
      public Booking(Reservation reservation, User user) {
@@ -55,7 +59,7 @@ public class Booking extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
-        RoomNumber = new javax.swing.JLabel();
+        Capacity = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         DateEnter = new javax.swing.JTextField();
@@ -64,6 +68,10 @@ public class Booking extends javax.swing.JPanel {
         DateExit = new javax.swing.JTextField();
         CreateButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        CapacityLabel1 = new javax.swing.JLabel();
+        NumberPersons = new javax.swing.JTextField();
+        jSeparator7 = new javax.swing.JSeparator();
+        RoomNumber1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(550, 420));
@@ -75,15 +83,15 @@ public class Booking extends javax.swing.JPanel {
         Title.setText("Make a Reservation!");
         jPanel1.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, 50));
 
-        RoomNumber.setBackground(new java.awt.Color(0, 0, 0));
-        RoomNumber.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RoomNumber.setForeground(new java.awt.Color(0, 0, 0));
-        RoomNumber.setText("Room Number : #");
-        jPanel1.add(RoomNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 130, -1));
+        Capacity.setBackground(new java.awt.Color(0, 0, 0));
+        Capacity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Capacity.setForeground(new java.awt.Color(0, 0, 0));
+        Capacity.setText("Capacity : ");
+        jPanel1.add(Capacity, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 130, -1));
 
         jSeparator6.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 180, 10));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 180, 10));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -102,8 +110,8 @@ public class Booking extends javax.swing.JPanel {
 
         CapacityLabel.setBackground(new java.awt.Color(0, 0, 0));
         CapacityLabel.setForeground(new java.awt.Color(0, 0, 0));
-        CapacityLabel.setText("Date Exit");
-        jPanel1.add(CapacityLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 130, -1));
+        CapacityLabel.setText("Persons");
+        jPanel1.add(CapacityLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 130, -1));
 
         jSeparator8.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
@@ -128,13 +136,38 @@ public class Booking extends javax.swing.JPanel {
                 CreateButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(CreateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 120, 50));
+        jPanel1.add(CreateButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 120, 50));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Remember: DD/MM/YYYY");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 240, 60));
+
+        CapacityLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        CapacityLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        CapacityLabel1.setText("Date Exit");
+        jPanel1.add(CapacityLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 130, -1));
+
+        NumberPersons.setBackground(new java.awt.Color(255, 255, 255));
+        NumberPersons.setForeground(new java.awt.Color(102, 102, 102));
+        NumberPersons.setBorder(null);
+        NumberPersons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NumberPersonsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(NumberPersons, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 180, 30));
+
+        jSeparator7.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 180, 10));
+
+        RoomNumber1.setBackground(new java.awt.Color(0, 0, 0));
+        RoomNumber1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RoomNumber1.setForeground(new java.awt.Color(0, 0, 0));
+        RoomNumber1.setText("Room Number : #");
+        jPanel1.add(RoomNumber1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -157,7 +190,7 @@ public class Booking extends javax.swing.JPanel {
     }//GEN-LAST:event_DateExitActionPerformed
 
     private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButtonActionPerformed
-
+        
         if (allFields()) {
             showMessageDialog(null, "All fields are required", "Error", ERROR_MESSAGE);
             return;
@@ -165,15 +198,29 @@ public class Booking extends javax.swing.JPanel {
 
         if(!comprobateDates()){
             return;
+        }      
+        if(!checkDate(DateEnter.getText().trim(), DateExit.getText().trim())){
+            return;
         }
         if (isEdition) {
+            if(!capacity(reservation.getCapacityRoom())){
+                return;
+            }
             updateRoom();
         } else {
+            if(!capacity(room.getCapacity())){
+                return;
+            }
+                
             createBooking(); 
         }
 
         Home.ShowJPanel(new RoomsPanel(this.user));
     }//GEN-LAST:event_CreateButtonActionPerformed
+
+    private void NumberPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPersonsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumberPersonsActionPerformed
    
     private void createBooking() {
         String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
@@ -184,10 +231,12 @@ public class Booking extends javax.swing.JPanel {
                                 user.getId(),
                                 room.getId(),
                                 room.getNumber(),
+                                NumberPersons.getText().trim(),
                                 DateEnter.getText().trim(),
                                 DateExit.getText().trim(),
                                 totalPrice,
-                                room.getPriceNight());
+                                room.getPriceNight(),
+                                room.getCapacity());
 
         if (!reservationController.create(reservation)) {
             showMessageDialog(null, "The Book was not created", "Error", ERROR_MESSAGE);
@@ -201,6 +250,7 @@ public class Booking extends javax.swing.JPanel {
         String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
                                                      DateExit.getText(), 
                                                      reservation.getPriceNigth());
+        this.reservation.setNumberPersons(NumberPersons.getText().trim());
         this.reservation.setDateEntry(DateEnter.getText().trim());
         this.reservation.setDateExit(DateExit.getText().trim());
         this.reservation.setTotalPrice(totalPrice);
@@ -242,14 +292,17 @@ public class Booking extends javax.swing.JPanel {
         DateExit.setText(reservation.getDateExit());
         CreateButton.setText("Edit");
         Title.setText("Update Booking");
-        RoomNumber.setText("Room number: " + reservation.getNumberRoom());
+        RoomNumber1.setText("Room number: " + reservation.getNumberRoom());
+        Capacity.setText("Capacity: " + reservation.getCapacityRoom());
+
     }
     
     private boolean allFields() {
-        String type = DateEnter.getText().trim();
-        String capacity = DateExit.getText().trim();
+        String dateEnter = DateEnter.getText().trim();
+        String dateExit = DateExit.getText().trim();
+        String persons = NumberPersons.getText().trim();
 
-        return type.isEmpty() || capacity.isEmpty();
+        return dateEnter.isEmpty() || dateExit.isEmpty() || persons.isEmpty();
     }
 
     private boolean comprobateDates(){
@@ -278,19 +331,69 @@ public class Booking extends javax.swing.JPanel {
         return true;
     }
     
+    private boolean checkDate(String DateEntry, String DateExit){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate entryDate = LocalDate.parse(DateEntry, formatter);
+        LocalDate exitDate = LocalDate.parse(DateExit, formatter);
+
+        List<Reservation> reservations;
+        if(isEdition){
+            reservations = reservationController.listReservationsRoom(this.reservation.getIdRoom());
+        }else{
+            reservations = reservationController.listReservationsRoom(this.room.getId());
+        }
+
+        for (Reservation reservation : reservations) {
+            LocalDate reservationEntryDate = LocalDate.parse(reservation.getDateEntry(), formatter);
+            LocalDate reservationExitDate = LocalDate.parse(reservation.getDateExit(), formatter);
+
+            if ((entryDate.isEqual(reservationEntryDate) || entryDate.isAfter(reservationEntryDate)) && entryDate.isBefore(reservationExitDate)) {
+                showMessageDialog(null, "The entry date overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
+                return false;
+            }
+
+            if ((exitDate.isEqual(reservationEntryDate) || exitDate.isAfter(reservationEntryDate)) && exitDate.isBefore(reservationExitDate)) {
+                showMessageDialog(null, "The exit date overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
+                return false;
+            }
+
+            if (entryDate.isBefore(reservationEntryDate) && exitDate.isAfter(reservationExitDate)) {
+                showMessageDialog(null, "The reservation period overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    private boolean capacity(String capacityRoom){
+        int persons = Integer.parseInt(NumberPersons.getText());
+        int capacity = Integer.parseInt(capacityRoom);
+
+        if(persons > capacity){
+            showMessageDialog(null, "You exceed the capacity.", "Error", ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Capacity;
     private javax.swing.JLabel CapacityLabel;
+    private javax.swing.JLabel CapacityLabel1;
     private javax.swing.JButton CreateButton;
     private javax.swing.JTextField DateEnter;
     private javax.swing.JTextField DateExit;
-    private javax.swing.JLabel RoomNumber;
+    private javax.swing.JTextField NumberPersons;
+    private javax.swing.JLabel RoomNumber1;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,30 +13,53 @@ public class Reservation {
     private String idClient;
     private String idRoom;
     private String numberRoom;
+    private String numberPersons;
     private String dateEntry;
     private String dateExit;
     private String totalPrice;
     private String priceNigth;
+    private String capacityRoom;
 
-    public Reservation(String id, String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String totalPrice, String priceNigth) {
+    public Reservation(String id, String idClient, String idRoom, String numberRoom,String numberPersons, String dateEntry, String dateExit, String totalPrice, String priceNigth,String capacityRoom) {
         this.id = id;
         this.idClient = idClient;
         this.idRoom = idRoom;
         this.numberRoom = numberRoom;
+        this.numberPersons = numberPersons;
         this.dateEntry = dateEntry;
         this.dateExit = dateExit;
         this.totalPrice = totalPrice;
         this.priceNigth = priceNigth;
+        this.capacityRoom = capacityRoom;
+
     }
 
-    public Reservation(String idClient, String idRoom, String numberRoom, String dateEntry, String dateExit, String price, String priceNigth) {
+    public Reservation(String idClient, String idRoom, String numberRoom, String numberPersons, String dateEntry, String dateExit, String price, String priceNigth, String capacityRoom) {
         this.idClient = idClient;
         this.idRoom = idRoom;
         this.numberRoom = numberRoom;
+        this.numberPersons = numberPersons;
         this.dateEntry = dateEntry;
         this.dateExit = dateExit;
         this.totalPrice = price;
         this.priceNigth = priceNigth;
+        this.capacityRoom = capacityRoom;
+    }
+
+    public String getCapacityRoom() {
+        return capacityRoom;
+    }
+
+    public void setCapacityRoom(String capacityRoom) {
+        this.capacityRoom = capacityRoom;
+    }
+
+    public String getNumberPersons() {
+        return numberPersons;
+    }
+
+    public void setNumberPersons(String numberPersons) {
+        this.numberPersons = numberPersons;
     }
 
     public String getTotalPrice() {
