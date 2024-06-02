@@ -66,7 +66,7 @@ public class RoomsPanel extends javax.swing.JPanel {
                 CreateActionPerformed(evt);
             }
         });
-        add(Create, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, -1, -1));
+        add(Create, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, -1, -1));
 
         Update.setBackground(new java.awt.Color(18, 90, 173));
         Update.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -79,7 +79,7 @@ public class RoomsPanel extends javax.swing.JPanel {
                 UpdateActionPerformed(evt);
             }
         });
-        add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, -1, -1));
+        add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, -1, -1));
 
         Delete.setBackground(new java.awt.Color(18, 90, 173));
         Delete.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -92,7 +92,7 @@ public class RoomsPanel extends javax.swing.JPanel {
                 DeleteActionPerformed(evt);
             }
         });
-        add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, -1, -1));
+        add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -130,7 +130,7 @@ public class RoomsPanel extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 530, 340));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 530, 360));
     }// </editor-fold>//GEN-END:initComponents
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed

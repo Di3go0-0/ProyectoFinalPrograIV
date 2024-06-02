@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package bookshotell;
-import Views.Login;
+
+import Views.Authentication;
+
 
 
 /**
@@ -17,7 +19,7 @@ public class BooksHotell {
      */
     public static void main(String[] args) {
         
-        Login view = new Login();
+        Authentication view = new Authentication();
         view.setVisible(true);
     }
     

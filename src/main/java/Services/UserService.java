@@ -1,6 +1,7 @@
 package Services;
 
 import com.mongodb.client.MongoCollection;
+import Interfaces.IUsersService;
 import ConecctionDB.MongoDBConnection;
 import Models.User;
 import org.bson.Document;
@@ -8,7 +9,7 @@ import com.mongodb.MongoException;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
-public class UserService extends MongoDBConnection {
+public class UserService extends MongoDBConnection implements IUsersService{
     private MongoCollection<Document> userCollection;
     private User loggedUser;
 
@@ -21,15 +22,73 @@ public class UserService extends MongoDBConnection {
     }
 
     public UserService() {
-        connect(); // Llama al método connect() de MongoDBConnection para establecer la conexión
-        this.userCollection = getDatabase().getCollection("Users"); // Obtén la colección después de la conexión
+        connect();
+        this.userCollection = getDatabase().getCollection("Users");
         this.addAdmin();
     }
 
+    @Override
     public boolean userExist(String email) {
         Bson filter = Filters.eq("email", email);
         Document usuarioExistente = userCollection.find(filter).first();
         return usuarioExistente != null;
+    }
+
+    @Override
+    public boolean register(User user) {
+        if (userExist(user.getEmail())) {
+            System.out.println("El usuario con email " + user.getEmail() + " ya existe.");
+            return false;
+        }
+
+        Document usuarioDoc = convertirUsuarioADocument(user);
+        return insertUser(usuarioDoc);
+    }
+
+    @Override
+    public boolean login(String email, String password) {
+        Bson filter = Filters.eq("email", email);
+        Document usuario = userCollection.find(filter).first();
+
+        if (usuario != null) {
+            String storedPassword = usuario.getString("password");
+            if (password.equals(storedPassword)) {
+                return true;
+            } else {
+                System.out.println("Contraseña incorrecta.");
+                return false;
+            }
+        } else {
+            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
+            return false;
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Bson filter = Filters.eq("email", email);
+        Document usuario = userCollection.find(filter).first();
+
+        if (usuario != null) {
+            this.loggedUser = new User(
+                    usuario.getObjectId("_id").toString(),
+                    usuario.getString("typeCC"),
+                    usuario.getString("cc"),
+                    usuario.getString("name"),
+                    usuario.getString("lastName"),
+                    usuario.getString("email"),
+                    usuario.getString("address"),
+                    usuario.getString("city"),
+                    usuario.getString("phone"),
+                    usuario.getString("password"),
+                    usuario.getString("typeUser")
+            );
+            return this.loggedUser;
+        } else {
+            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
+            this.loggedUser = null;
+            return null;
+        }
     }
 
     private Document convertirUsuarioADocument(User user) {
@@ -49,21 +108,11 @@ public class UserService extends MongoDBConnection {
         try {
             userCollection.insertOne(usuarioDoc);
             System.out.println("Usuario agregado correctamente.");
-            return true; // Usuario agregado con éxito
+            return true;
         } catch (MongoException e) {
             System.err.println("Error al agregar usuario: " + e.getMessage());
-            return false; // Error al agregar usuario
+            return false;
         }
-    }
-
-    public boolean register(User user) {
-        if (userExist(user.getEmail())) {
-            System.out.println("El usuario con email " + user.getEmail() + " ya existe.");
-            return false; // Usuario ya existe
-        }
-
-        Document usuarioDoc = convertirUsuarioADocument(user);
-        return insertUser(usuarioDoc);
     }
 
     private void addAdmin() {
@@ -80,58 +129,6 @@ public class UserService extends MongoDBConnection {
 
         if (!userExist(Admin.getEmail())) {
             this.register(Admin);
-        }
-    }
-
-    public boolean login(String email, String password) {
-        // Filtrar por el correo electrónico proporcionado
-        Bson filter = Filters.eq("email", email);
-        // Buscar en la base de datos
-        Document usuario = userCollection.find(filter).first();
-
-        // Verificar si se encontró un usuario con el correo electrónico proporcionado
-        if (usuario != null) {
-            // Obtener la contraseña almacenada en la base de datos
-            String storedPassword = usuario.getString("password");
-            // Verificar si la contraseña coincide con la proporcionada
-            if (password.equals(storedPassword)) {
-                // La contraseña coincide, inicio de sesión exitoso
-                return true;
-            } else {
-                // La contraseña no coincide
-                System.out.println("Contraseña incorrecta.");
-                return false;
-            }
-        } else {
-            // No se encontró un usuario con el correo electrónico proporcionado
-            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
-            return false;
-        }
-    }
-
-    public User getUserByEmail(String email) {
-        Bson filter = Filters.eq("email", email);
-        Document usuario = userCollection.find(filter).first();
-
-        if (usuario != null) {
-            this.loggedUser = new User(
-                    usuario.getObjectId("_id").toString(),  // Assuming you want to capture the MongoDB _id
-                    usuario.getString("typeCC"),
-                    usuario.getString("cc"),
-                    usuario.getString("name"),
-                    usuario.getString("lastName"),
-                    usuario.getString("email"),
-                    usuario.getString("address"),
-                    usuario.getString("city"),
-                    usuario.getString("phone"),
-                    usuario.getString("password"),
-                    usuario.getString("typeUser")
-            );
-            return this.loggedUser;
-        } else {
-            System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
-            this.loggedUser = null;
-            return null;
         }
     }
 }

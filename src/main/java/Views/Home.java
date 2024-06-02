@@ -18,6 +18,7 @@ public class Home extends javax.swing.JFrame {
 
     private boolean isAdmin = false;
     private User user;
+    
     public Home(User user) {
         initComponents();
         setLocationRelativeTo(null);
@@ -168,23 +169,23 @@ public class Home extends javax.swing.JFrame {
         WelcomeLayout.setHorizontalGroup(
             WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WelcomeLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(WelcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(TypeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                .addGap(49, 49, 49))
+                .addGap(51, 51, 51))
         );
         WelcomeLayout.setVerticalGroup(
             WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WelcomeLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(11, 11, 11)
                 .addGroup(WelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(WelcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TypeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
-                .addGap(52, 52, 52))
+                    .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TypeLabel))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        Background.add(Welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 440, 80));
+        Background.add(Welcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 440, 60));
 
         Content.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -196,10 +197,10 @@ public class Home extends javax.swing.JFrame {
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 440, Short.MAX_VALUE)
         );
 
-        Background.add(Content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 550, 420));
+        Background.add(Content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 550, 440));
 
         LogoutPanel.setBackground(new java.awt.Color(0, 93, 139));
 
@@ -225,9 +226,9 @@ public class Home extends javax.swing.JFrame {
         LogoutPanelLayout.setVerticalGroup(
             LogoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LogoutPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
+                .addGap(14, 14, 14)
+                .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
         Background.add(LogoutPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -248,7 +249,8 @@ public class Home extends javax.swing.JFrame {
 
     private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
         dispose();
-        Login view = new Login();
+        //Login view = new Login();
+        Authentication view = new Authentication();
         view.setVisible(true);
         
     }//GEN-LAST:event_LogoutMouseClicked
@@ -290,7 +292,7 @@ public class Home extends javax.swing.JFrame {
     }
     
     public static void ShowJPanel(JPanel panel) {
-        panel.setSize(550, 420);
+        panel.setSize(550, 440);
         panel.setLocation(0, 0);
 
         Content.removeAll();

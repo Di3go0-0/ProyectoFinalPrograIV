@@ -73,6 +73,8 @@ public class Booking extends javax.swing.JPanel {
         jSeparator7 = new javax.swing.JSeparator();
         RoomNumber1 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(550, 440));
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(550, 420));
         jPanel1.setPreferredSize(new java.awt.Dimension(550, 420));
@@ -177,7 +179,9 @@ public class Booking extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

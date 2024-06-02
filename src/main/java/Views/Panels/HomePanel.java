@@ -39,7 +39,7 @@ public class HomePanel extends javax.swing.JPanel {
         ImageUser.setForeground(new java.awt.Color(0, 0, 0));
         ImageUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ImageUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/logo.png"))); // NOI18N
-        HomePanel.add(ImageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 170, 160));
+        HomePanel.add(ImageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 160));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -51,7 +51,7 @@ public class HomePanel extends javax.swing.JPanel {
         jTextPane1.setText("Welcome to My Hotel, where luxury and comfort merge to offer you an unparalleled experience. From our elegant guest rooms to our world-class restaurants and world-class spa, every detail is designed for your ultimate enjoyment. Let our expert staff provide impeccable service during your stay, creating memories that will last long after you leave.");
         jScrollPane1.setViewportView(jTextPane1);
 
-        HomePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 450, 240));
+        HomePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 450, 240));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,7 +61,9 @@ public class HomePanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(HomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
