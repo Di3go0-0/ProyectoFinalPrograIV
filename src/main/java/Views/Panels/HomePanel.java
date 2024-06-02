@@ -4,6 +4,8 @@
  */
 package Views.Panels;
 
+import javax.swing.*;
+import java.awt.*;
 /**
  *
  * @author Administrator
@@ -15,6 +17,7 @@ public class HomePanel extends javax.swing.JPanel {
      */
     public HomePanel() {
         initComponents();
+        
     }
 
     /**
@@ -27,31 +30,87 @@ public class HomePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         HomePanel = new javax.swing.JPanel();
-        ImageUser = new javax.swing.JLabel();
+        Restaurante = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        jLabel2 = new javax.swing.JLabel();
+        Restaurante1 = new javax.swing.JLabel();
+        Restaurante2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPane2 = new javax.swing.JTextPane();
+        jLabel5 = new javax.swing.JLabel();
 
         HomePanel.setBackground(new java.awt.Color(255, 255, 255));
         HomePanel.setMinimumSize(new java.awt.Dimension(550, 420));
-        HomePanel.setPreferredSize(new java.awt.Dimension(550, 420));
+        HomePanel.setPreferredSize(new java.awt.Dimension(550, 440));
         HomePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ImageUser.setForeground(new java.awt.Color(0, 0, 0));
-        ImageUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ImageUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/logo.png"))); // NOI18N
-        HomePanel.add(ImageUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 160));
+        Restaurante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/Restaurant.png"))); // NOI18N
+        HomePanel.add(Restaurante, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 70, 70));
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Welcome to My Hotel");
+        HomePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 40));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setToolTipText("");
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTextPane1.setEditable(false);
         jTextPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextPane1.setBorder(null);
-        jTextPane1.setFont(new java.awt.Font("FiraCode Nerd Font", 1, 18)); // NOI18N
-        jTextPane1.setForeground(new java.awt.Color(51, 51, 51));
-        jTextPane1.setText("Welcome to My Hotel, where luxury and comfort merge to offer you an unparalleled experience. From our elegant guest rooms to our world-class restaurants and world-class spa, every detail is designed for your ultimate enjoyment. Let our expert staff provide impeccable service during your stay, creating memories that will last long after you leave.");
+        jTextPane1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextPane1.setText("Let our expert staff provide impeccable service during your stay, creating memories that will last long after you leave");
         jScrollPane1.setViewportView(jTextPane1);
 
-        HomePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 450, 240));
+        HomePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 250, 50));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Elegant guest rooms");
+        HomePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 130, 30));
+
+        Restaurante1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/Bed.png"))); // NOI18N
+        HomePanel.add(Restaurante1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 70, 70));
+
+        Restaurante2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/SPA.png"))); // NOI18N
+        HomePanel.add(Restaurante2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 70, 70));
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Restaurants");
+        HomePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 90, 30));
+
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Word-Class spa");
+        HomePanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 110, 30));
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setToolTipText("");
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jTextPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextPane2.setForeground(new java.awt.Color(0, 0, 0));
+        jTextPane2.setText("Where luxury and confort merge to offer you an unparalleled expereience");
+        jScrollPane2.setViewportView(jTextPane2);
+
+        HomePanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 220, 40));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Views/images/Hotel.png"))); // NOI18N
+        HomePanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 100, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,17 +120,24 @@ public class HomePanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(HomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(HomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel HomePanel;
-    private javax.swing.JLabel ImageUser;
+    private javax.swing.JLabel Restaurante;
+    private javax.swing.JLabel Restaurante1;
+    private javax.swing.JLabel Restaurante2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPane2;
     // End of variables declaration//GEN-END:variables
 }

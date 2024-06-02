@@ -38,6 +38,7 @@ public class Authentication extends javax.swing.JFrame {
         Logo = new javax.swing.JLabel();
         LoginButton = new javax.swing.JButton();
         RegisterButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         Principal = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -87,6 +88,13 @@ public class Authentication extends javax.swing.JFrame {
             }
         });
         Menu.add(RegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 240, 50));
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setToolTipText("");
+        jSeparator1.setAlignmentX(1.0F);
+        jSeparator1.setAlignmentY(1.0F);
+        jSeparator1.setAutoscrolls(true);
+        Menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 63, 220, 10));
 
         jPanel1.add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 240, 500));
 
@@ -216,5 +224,6 @@ public class Authentication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

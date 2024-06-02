@@ -31,7 +31,6 @@ public class Reservation {
         this.totalPrice = totalPrice;
         this.priceNigth = priceNigth;
         this.capacityRoom = capacityRoom;
-
     }
 
     public Reservation(String idClient, String idRoom, String numberRoom, String numberPersons, String dateEntry, String dateExit, String price, String priceNigth, String capacityRoom) {
