@@ -23,30 +23,32 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 public class Booking extends javax.swing.JPanel {
 
-    private Room room;
-    private Reservation reservation;
-    private ReservationController reservationController = new ReservationController();
-    private User user;
-    private boolean isEdition = false;
-    
+    private final Room room;
+    private final Reservation reservation;
+    private final ReservationController reservationController = new ReservationController();
+    private final User user;
+    private final boolean isEdition;
+
     public Booking(Room room, User user) {
         initComponents();
         this.room = room;
         this.user = user;
-        
-        Capacity.setText("Room number: " + room.getNumber());  
+        this.reservation = null;
+        this.isEdition = false;
+
         Capacity.setText("Capacity: " + room.getCapacity());
+        RoomNumber1.setText("Room number: " + room.getNumber());
     }
-    
-     public Booking(Reservation reservation, User user) {
+
+    public Booking(Reservation reservation, User user) {
         initComponents();
-        
+        this.room = null;
         this.reservation = reservation;
         this.user = user;
-        
-        isEdition = true;
+        this.isEdition = true;
         edition();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,22 +202,23 @@ public class Booking extends javax.swing.JPanel {
             return;
         }
 
-        if(!comprobateDates()){
+        if (!comprobateDates()) {
             return;
         }      
-        if(!checkDate(DateEnter.getText().trim(), DateExit.getText().trim())){
+
+        if (!checkDate(DateEnter.getText().trim(), DateExit.getText().trim())) {
             return;
         }
+
         if (isEdition) {
-            if(!capacity(reservation.getCapacityRoom())){
+            if (!capacity(reservation.getCapacityRoom())) {
                 return;
             }
             updateRoom();
         } else {
-            if(!capacity(room.getCapacity())){
+            if (!capacity(room.getCapacity())) {
                 return;
             }
-                
             createBooking(); 
         }
 
@@ -227,141 +230,122 @@ public class Booking extends javax.swing.JPanel {
     }//GEN-LAST:event_NumberPersonsActionPerformed
    
     private void createBooking() {
-        String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
-                                                     DateExit.getText(), 
-                                                     room.getPriceNight());
-        
-        this.reservation = new Reservation(
-                                user.getId(),
-                                room.getId(),
-                                room.getNumber(),
-                                NumberPersons.getText().trim(),
-                                DateEnter.getText().trim(),
-                                DateExit.getText().trim(),
-                                totalPrice,
-                                room.getPriceNight(),
-                                room.getCapacity());
+        String totalPrice = calculateReservationPrice(DateEnter.getText().trim(), DateExit.getText(), room.getPriceNight());
 
-        if (!reservationController.create(reservation)) {
+        Reservation newReservation = new Reservation(
+                user.getId(),
+                room.getId(),
+                room.getNumber(),
+                NumberPersons.getText().trim(),
+                DateEnter.getText().trim(),
+                DateExit.getText().trim(),
+                totalPrice,
+                room.getPriceNight(),
+                room.getCapacity()
+        );
+
+        if (!reservationController.create(newReservation)) {
             showMessageDialog(null, "The Book was not created", "Error", ERROR_MESSAGE);
             return;
         }
 
         showMessageDialog(null, "The Book was created", "Success", INFORMATION_MESSAGE);
     }
-    
+
     private void updateRoom() {
-        String totalPrice = calculateReservationPrice(DateEnter.getText().trim(),
-                                                     DateExit.getText(), 
-                                                     reservation.getPriceNigth());
-        this.reservation.setNumberPersons(NumberPersons.getText().trim());
-        this.reservation.setDateEntry(DateEnter.getText().trim());
-        this.reservation.setDateExit(DateExit.getText().trim());
-        this.reservation.setTotalPrice(totalPrice);
+        String totalPrice = calculateReservationPrice(DateEnter.getText().trim(), DateExit.getText(), reservation.getPriceNigth());
+        reservation.setNumberPersons(NumberPersons.getText().trim());
+        reservation.setDateEntry(DateEnter.getText().trim());
+        reservation.setDateExit(DateExit.getText().trim());
+        reservation.setTotalPrice(totalPrice);
 
-        if (!reservationController.update(this.reservation)) {
-            showMessageDialog(null, "The Book was not created", "Error", ERROR_MESSAGE);
+        if (!reservationController.update(reservation)) {
+            showMessageDialog(null, "The Book was not updated", "Error", ERROR_MESSAGE);
             return;
         }
 
-        showMessageDialog(null, "The Book was created", "Success", INFORMATION_MESSAGE);
+        showMessageDialog(null, "The Book was updated", "Success", INFORMATION_MESSAGE);
     }
+
     
     
     
     
     public String calculateReservationPrice(String DateEntry, String DateExit, String PriceNight) {
-        // Definir el formato de fecha
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
-        // Convertir las cadenas de fecha a objetos LocalDate
         LocalDate entryDate = LocalDate.parse(DateEntry, formatter);
         LocalDate exitDate = LocalDate.parse(DateExit, formatter);
-        
-        // Calcular la diferencia en días entre las dos fechas
+
         long days = ChronoUnit.DAYS.between(entryDate, exitDate);
-        
-        // Convertir el precio por noche a entero
         int pricePerNight = Integer.parseInt(PriceNight);
-        
-        // Calcular el precio total
         int totalPrice = (int) (days * pricePerNight);
-        
-        // Devolver el resultado como una cadena
+
         return Integer.toString(totalPrice);
     }
+
     
-    private void edition(){
+    private void edition() {
         DateEnter.setText(reservation.getDateEntry());
         DateExit.setText(reservation.getDateExit());
+        NumberPersons.setText(reservation.getNumberPersons());
         CreateButton.setText("Edit");
         Title.setText("Update Booking");
         RoomNumber1.setText("Room number: " + reservation.getNumberRoom());
         Capacity.setText("Capacity: " + reservation.getCapacityRoom());
-
     }
+
     
     private boolean allFields() {
-        String dateEnter = DateEnter.getText().trim();
-        String dateExit = DateExit.getText().trim();
-        String persons = NumberPersons.getText().trim();
-
-        return dateEnter.isEmpty() || dateExit.isEmpty() || persons.isEmpty();
+        return DateEnter.getText().trim().isEmpty() ||
+               DateExit.getText().trim().isEmpty() ||
+               NumberPersons.getText().trim().isEmpty();
     }
 
-    private boolean comprobateDates(){
+    private boolean comprobateDates() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate entryDate = null;
-        LocalDate exitDate = null;
 
         try {
-            entryDate = LocalDate.parse(DateEnter.getText(), formatter);
-            exitDate = LocalDate.parse(DateExit.getText(), formatter);
+            LocalDate entryDate = LocalDate.parse(DateEnter.getText(), formatter);
+            LocalDate exitDate = LocalDate.parse(DateExit.getText(), formatter);
+            LocalDate now = LocalDate.now();
+
+            if (entryDate.isBefore(now) || exitDate.isBefore(now)) {
+                showMessageDialog(null, "Dates must be in the future", "Error", ERROR_MESSAGE);
+                return false;
+            }
+
+            if (entryDate.isAfter(exitDate)) {
+                showMessageDialog(null, "The entry date must be before the exit date", "Error", ERROR_MESSAGE);
+                return false;
+            }
+
         } catch (DateTimeParseException e) {
             showMessageDialog(null, "Dates must be in the format dd/MM/yyyy", "Error", ERROR_MESSAGE);
             return false;
         }
-
-        LocalDate now = LocalDate.now();
-        if (entryDate.isBefore(now) || exitDate.isBefore(now)) {
-            showMessageDialog(null, "Dates must be in the future", "Error", ERROR_MESSAGE);
-            return false;
-        }
-
-        if (entryDate.isAfter(exitDate)) {
-            showMessageDialog(null, "The entry date must be before the exit date", "Error", ERROR_MESSAGE);
-            return false;
-        }
         return true;
     }
-    
-    private boolean checkDate(String DateEntry, String DateExit){
+
+    private boolean checkDate(String DateEntry, String DateExit) {
+        String currentReservationId = isEdition ? this.reservation.getId() : null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate entryDate = LocalDate.parse(DateEntry, formatter);
         LocalDate exitDate = LocalDate.parse(DateExit, formatter);
 
-        List<Reservation> reservations;
-        if(isEdition){
-            reservations = reservationController.listReservationsRoom(this.reservation.getIdRoom());
-        }else{
-            reservations = reservationController.listReservationsRoom(this.room.getId());
-        }
+        List<Reservation> reservations = isEdition ? 
+                                         reservationController.listReservationsRoom(reservation.getIdRoom()) :
+                                         reservationController.listReservationsRoom(room.getId());
 
         for (Reservation reservation : reservations) {
+            if (currentReservationId != null && currentReservationId.equals(reservation.getId())) {
+                continue;
+            }
             LocalDate reservationEntryDate = LocalDate.parse(reservation.getDateEntry(), formatter);
             LocalDate reservationExitDate = LocalDate.parse(reservation.getDateExit(), formatter);
 
-            if ((entryDate.isEqual(reservationEntryDate) || entryDate.isAfter(reservationEntryDate)) && entryDate.isBefore(reservationExitDate)) {
-                showMessageDialog(null, "The entry date overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
-                return false;
-            }
-
-            if ((exitDate.isEqual(reservationEntryDate) || exitDate.isAfter(reservationEntryDate)) && exitDate.isBefore(reservationExitDate)) {
-                showMessageDialog(null, "The exit date overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
-                return false;
-            }
-
-            if (entryDate.isBefore(reservationEntryDate) && exitDate.isAfter(reservationExitDate)) {
+            if ((entryDate.isEqual(reservationEntryDate) || entryDate.isAfter(reservationEntryDate)) && entryDate.isBefore(reservationExitDate) ||
+                (exitDate.isEqual(reservationEntryDate) || exitDate.isAfter(reservationEntryDate)) && exitDate.isBefore(reservationExitDate) ||
+                entryDate.isBefore(reservationEntryDate) && exitDate.isAfter(reservationExitDate)) {
                 showMessageDialog(null, "The reservation period overlaps with an existing reservation.", "Error", ERROR_MESSAGE);
                 return false;
             }
@@ -369,17 +353,18 @@ public class Booking extends javax.swing.JPanel {
 
         return true;
     }
-    
-    private boolean capacity(String capacityRoom){
+
+    private boolean capacity(String capacityRoom) {
         int persons = Integer.parseInt(NumberPersons.getText());
         int capacity = Integer.parseInt(capacityRoom);
 
-        if(persons > capacity){
+        if (persons > capacity) {
             showMessageDialog(null, "You exceed the capacity.", "Error", ERROR_MESSAGE);
             return false;
         }
         return true;
     }
+
     
     
 

@@ -192,6 +192,7 @@ public class Authentication extends javax.swing.JFrame {
             }
         });
     }
+    
     public static void ShowJPanel(JPanel panel) {
         panel.setSize(560, 440);
         panel.setLocation(0, 0);

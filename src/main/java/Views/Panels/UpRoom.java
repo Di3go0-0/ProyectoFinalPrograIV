@@ -4,7 +4,6 @@
  */
 package Views.Panels;
 
-import ConecctionDB.MongoDBConnection;
 import Controllers.RoomController;
 import Models.Room;
 import Models.User;
@@ -209,12 +208,7 @@ public class UpRoom extends javax.swing.JPanel {
         Home.ShowJPanel(new RoomsPanel(this.user));
     }//GEN-LAST:event_CreateButtonActionPerformed
 
-    private boolean checkUserExist(){
-         if(roomController.roomExist(RoomNumber.getText().trim())){
-            return true;
-         }
-         return false;
-    }
+    
    
     
     private void createRoom() {

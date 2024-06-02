@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ConecctionDB.MongoDBConnection;
 import Interfaces.IReservationsService;
+import Utils.ReservationConverter;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
@@ -20,40 +21,9 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         this.reservationCollection = getDatabase().getCollection("Reservations"); // Obtén la colección después de la conexión
     }
 
-    private Document convertirRoomADocument(Reservation reservation) {
-        Document document = new Document("idClient", reservation.getIdClient())
-                .append("idRoom", reservation.getIdRoom())
-                .append("numberRoom", reservation.getNumberRoom())
-                .append("numberPersons", reservation.getNumberPersons())
-                .append("dateEntry", reservation.getDateEntry())
-                .append("dateExit", reservation.getDateExit())
-                .append("totalPrice", reservation.getTotalPrice())
-                .append("priceNigth", reservation.getPriceNigth())
-                .append("capacityRoom", reservation.getCapacityRoom());
-        if (reservation.getId() != null && !reservation.getId().isEmpty()) {
-            document.append("_id", new ObjectId(reservation.getId()));
-        }
-        return document;
-    }
-
-    private Reservation convertirDocumentARoom(Document document) {
-        return new Reservation(
-                document.getObjectId("_id").toString(),
-                document.getString("idClient"),
-                document.getString("idRoom"),
-                document.getString("numberRoom"),
-                document.getString("numberPersons"),
-                document.getString("dateEntry"),
-                document.getString("dateExit"),
-                document.getString("totalPrice"),
-                document.getString("priceNigth"),
-                document.getString("capacityRoom")
-        );
-    }
-    
     @Override
     public boolean create(Reservation reservation) {
-        Document document = convertirRoomADocument(reservation);
+        Document document = ReservationConverter.convertirReservationADocument(reservation);
         reservationCollection.insertOne(document);
         return true;
     }
@@ -63,7 +33,7 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         try {
             ObjectId objectId = new ObjectId(reservation.getId());
             Bson filter = Filters.eq("_id", objectId);
-            Document document = convertirRoomADocument(reservation);
+            Document document = ReservationConverter.convertirReservationADocument(reservation);
 
             UpdateResult result = reservationCollection.replaceOne(filter, document);
             long modifiedCount = result.getModifiedCount();
@@ -95,7 +65,7 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         List<Reservation> reservations = new ArrayList<>();
         Bson filter = Filters.eq("idClient", idClient); // Crear filtro para idClient
         for (Document document : reservationCollection.find(filter)) {
-            reservations.add(convertirDocumentARoom(document));
+            reservations.add(ReservationConverter.convertirDocumentAReservation(document));
         }
         return reservations;
     }
@@ -103,7 +73,7 @@ public class ReservationService extends MongoDBConnection implements IReservatio
     public List<Reservation> listReservationAdmin() {
         List<Reservation> reservations = new ArrayList<>();
         for (Document document : reservationCollection.find()) {
-            reservations.add(convertirDocumentARoom(document));
+            reservations.add(ReservationConverter.convertirDocumentAReservation(document));
         }
         return reservations;
     }
@@ -115,7 +85,7 @@ public class ReservationService extends MongoDBConnection implements IReservatio
             Bson filter = Filters.eq("_id", objectId);
             Document document = reservationCollection.find(filter).first();
             if (document != null) {
-                return convertirDocumentARoom(document);
+                return ReservationConverter.convertirDocumentAReservation(document);
             } else {
                 return null; // No se encontró la reserva con el ID especificado
             }
@@ -129,7 +99,7 @@ public class ReservationService extends MongoDBConnection implements IReservatio
         List<Reservation> reservations = new ArrayList<>();
         Bson filter = Filters.eq("idRoom", idRoom); // Crear filtro para idClient
         for (Document document : reservationCollection.find(filter)) {
-            reservations.add(convertirDocumentARoom(document));
+            reservations.add(ReservationConverter.convertirDocumentAReservation(document));
         }
         return reservations;
     }

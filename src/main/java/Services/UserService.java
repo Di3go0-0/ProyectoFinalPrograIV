@@ -4,12 +4,15 @@ import com.mongodb.client.MongoCollection;
 import Interfaces.IUsersService;
 import ConecctionDB.MongoDBConnection;
 import Models.User;
+import Utils.UserConverter;
 import org.bson.Document;
 import com.mongodb.MongoException;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
+
 public class UserService extends MongoDBConnection implements IUsersService{
+    private static final String COLLECTION_NAME = "Users";
     private MongoCollection<Document> userCollection;
     private User loggedUser;
 
@@ -23,7 +26,7 @@ public class UserService extends MongoDBConnection implements IUsersService{
 
     public UserService() {
         connect();
-        this.userCollection = getDatabase().getCollection("Users");
+        this.userCollection = getDatabase().getCollection(COLLECTION_NAME);
         this.addAdmin();
     }
 
@@ -41,7 +44,7 @@ public class UserService extends MongoDBConnection implements IUsersService{
             return false;
         }
 
-        Document usuarioDoc = convertirUsuarioADocument(user);
+        Document usuarioDoc = UserConverter.convertToDocument(user);
         return insertUser(usuarioDoc);
     }
 
@@ -70,38 +73,14 @@ public class UserService extends MongoDBConnection implements IUsersService{
         Document usuario = userCollection.find(filter).first();
 
         if (usuario != null) {
-            this.loggedUser = new User(
-                    usuario.getObjectId("_id").toString(),
-                    usuario.getString("typeCC"),
-                    usuario.getString("cc"),
-                    usuario.getString("name"),
-                    usuario.getString("lastName"),
-                    usuario.getString("email"),
-                    usuario.getString("address"),
-                    usuario.getString("city"),
-                    usuario.getString("phone"),
-                    usuario.getString("password"),
-                    usuario.getString("typeUser")
-            );
+            this.loggedUser = UserConverter.convertToUser(usuario);
             return this.loggedUser;
         } else {
             System.out.println("No se encontró un usuario con el correo electrónico proporcionado.");
             this.loggedUser = null;
             return null;
         }
-    }
-
-    private Document convertirUsuarioADocument(User user) {
-        return new Document("typeCC", user.getTypeCC())
-                .append("cc", user.getCC())
-                .append("name", user.getName())
-                .append("lastName", user.getLastName())
-                .append("email", user.getEmail())
-                .append("address", user.getAddress())
-                .append("city", user.getCity())
-                .append("phone", user.getPhone())
-                .append("password", user.getPassword())
-                .append("typeUser", user.getTypeUser());
+        
     }
 
     private boolean insertUser(Document usuarioDoc) {

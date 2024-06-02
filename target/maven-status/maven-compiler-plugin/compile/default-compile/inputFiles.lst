@@ -4,6 +4,7 @@ C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\jav
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Panels\LoginPanel.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Controllers\UserController.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Panels\UpRoom.java
+C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Utils\RoomConverter.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Models\Reservation.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Models\Room.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Interfaces\IReservationsService.java
@@ -16,8 +17,10 @@ C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\jav
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Services\ReservationService.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Services\RoomsService.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Panels\RegisterPanel.java
+C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Utils\UserConverter.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Models\User.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Controllers\RoomController.java
+C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Utils\ReservationConverter.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Options\CreateRooms.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\Views\Authentication.java
 C:\Users\Administrator\Documents\Proyectos Personales\PoyBooksHotel\src\main\java\ConecctionDB\MongoDBConnection.java

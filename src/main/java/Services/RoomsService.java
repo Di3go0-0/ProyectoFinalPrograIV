@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import ConecctionDB.MongoDBConnection;
 import Interfaces.IRoomsService;
+import Utils.RoomConverter;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.UpdateResult;
@@ -24,33 +25,12 @@ public class RoomsService extends MongoDBConnection implements IRoomsService {
         this.roomCollection = getDatabase().getCollection("Rooms"); // Obtén la colección después de la conexión
     }
 
-    private Document convertirRoomADocument(Room room) {
-        Document document = new Document("number", room.getNumber())
-                .append("type", room.getType())
-                .append("capacity", room.getCapacity())
-                .append("priceNight", room.getPriceNight());
-        if (room.getId() != null && !room.getId().isEmpty()) {
-            document.append("_id", new ObjectId(room.getId()));
-        }
-        return document;
-    }
-
-    private Room convertirDocumentARoom(Document document) {
-        return new Room(
-                document.getObjectId("_id").toString(),
-                document.getString("number"),
-                document.getString("type"),
-                document.getString("capacity"),
-                document.getString("priceNight")
-        );
-    }
-
     @Override
     public boolean create(Room room) {
         if (roomExist(room.getNumber())) {
             return false;
         }
-        Document document = convertirRoomADocument(room);
+        Document document = RoomConverter.convertirRoomADocument(room);
         roomCollection.insertOne(document);
         return true;
     }
@@ -60,7 +40,7 @@ public class RoomsService extends MongoDBConnection implements IRoomsService {
         try {
             ObjectId objectId = new ObjectId(room.getId());
             Bson filter = Filters.eq("_id", objectId);
-            Document document = convertirRoomADocument(room);
+            Document document = RoomConverter.convertirRoomADocument(room);
 
             UpdateResult result = roomCollection.replaceOne(filter, document);
             long modifiedCount = result.getModifiedCount();
@@ -93,7 +73,7 @@ public class RoomsService extends MongoDBConnection implements IRoomsService {
     public List<Room> list() {
         List<Room> rooms = new ArrayList<>();
         for (Document document : roomCollection.find()) {
-            rooms.add(convertirDocumentARoom(document));
+            rooms.add(RoomConverter.convertirDocumentARoom(document));
         }
         return rooms;
     }
@@ -106,7 +86,7 @@ public class RoomsService extends MongoDBConnection implements IRoomsService {
         if (document == null) {
             return null;
         }
-        return convertirDocumentARoom(document);
+        return RoomConverter.convertirDocumentARoom(document);
     }
 
     public boolean roomExist(String number) {

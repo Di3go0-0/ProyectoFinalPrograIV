@@ -23,10 +23,13 @@ Views\Panels\RoomsPanel$2.class
 Views\Options\CreateRooms$6.class
 Controllers\ReservationController.class
 Views\Panels\ReservationsPanel$1.class
+Utils\RoomConverter.class
 Views\Panels\ReservationsPanel.class
+Utils\UserConverter.class
 Views\Options\CreateRooms$3.class
 Views\Options\CreateRooms$2.class
 Views\Panels\RoomsPanel$3.class
 Views\Panels\UpRoom$3.class
 Interfaces\IRoomsService.class
 Views\Options\CreateRooms.class
+Utils\ReservationConverter.class
