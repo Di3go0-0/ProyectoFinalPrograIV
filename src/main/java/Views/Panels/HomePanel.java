@@ -92,7 +92,7 @@ public class HomePanel extends javax.swing.JPanel {
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Word-Class spa");
+        jLabel4.setText("World-Class spa");
         HomePanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 110, 30));
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));

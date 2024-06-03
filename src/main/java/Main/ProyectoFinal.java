@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package bookshotell;
+package Main;
 
 import Views.Authentication;
 
@@ -12,7 +12,7 @@ import Views.Authentication;
  *
  * @author Administrator
  */
-public class BooksHotell {
+public class ProyectoFinal {
 
     /**
      * @param args the command line arguments

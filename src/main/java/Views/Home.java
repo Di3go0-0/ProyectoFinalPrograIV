@@ -205,6 +205,7 @@ public class Home extends javax.swing.JFrame {
         LogoutPanel.setBackground(new java.awt.Color(0, 93, 139));
 
         Logout.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Logout.setForeground(new java.awt.Color(255, 255, 255));
         Logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Logout.setText("Logout");
         Logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

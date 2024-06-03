@@ -222,7 +222,7 @@ public class Booking extends javax.swing.JPanel {
             createBooking(); 
         }
 
-        Home.ShowJPanel(new RoomsPanel(this.user));
+        Home.ShowJPanel(new ReservationsPanel(this.user));
     }//GEN-LAST:event_CreateButtonActionPerformed
 
     private void NumberPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NumberPersonsActionPerformed
@@ -353,6 +353,7 @@ public class Booking extends javax.swing.JPanel {
 
         return true;
     }
+    
 
     private boolean capacity(String capacityRoom) {
         int persons = Integer.parseInt(NumberPersons.getText());
@@ -360,6 +361,10 @@ public class Booking extends javax.swing.JPanel {
 
         if (persons > capacity) {
             showMessageDialog(null, "You exceed the capacity.", "Error", ERROR_MESSAGE);
+            return false;
+        }
+        if(persons < 1){
+            showMessageDialog(null, "The number of persons have to be a number greater that 0", "Error", ERROR_MESSAGE);
             return false;
         }
         return true;
